@@ -13,7 +13,7 @@
 \S4method{listTablesBE}{ANY}(x, ...)
 }
 \arguments{
-\item{x}{GiottoDB object or DB connection}
+\item{x}{Duckling object or DB connection}
 
 \item{...}{additional params to pass}
 }

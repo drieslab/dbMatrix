@@ -227,7 +227,32 @@ compute_dbmatrix_permanent = function(x, p, fnq, ...) {
   return(dbMat)
 }
 
+#' Create a dbSparseMatrix object from a sparse matrix
+#' @description Internal function to create a dbSparseMatrix object
+#' @param sparse_mat A sparse matrix object
+#' @param con A database connection object
+#' @return A dbSparseMatrix object
+#' @export
+create_dbSparseMatrix = function(sparse_mat, con){
 
+  # Get dgc info
+  dim_names = list(row = rownames(sparse_mat), col = colnames(sparse_mat))
+  dims = dim(sparse_mat)
+
+  # Create ijx matrix see sparseSummary in {Matrix} for more information
+  ijx = Matrix::summary(sparse_mat)
+
+  # Add ijx to db
+  table = createTableBE(conn = con, name = "ijx", fields_df = ijx)
+
+  # Create dbSparseMatrix object
+  res <- new("dbSparseMatrix",
+             dim_names = dim_names,
+             dims = dims,
+             values = list(table))
+
+  return(res)
+}
 
 
 

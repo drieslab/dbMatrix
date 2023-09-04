@@ -18,7 +18,7 @@
 \S4method{queryStack}{ANY}(x) <- value
 }
 \arguments{
-\item{x}{GiottoDB object}
+\item{x}{Duckling object}
 }
 \description{
 Get and set the queryStack for a db backend object

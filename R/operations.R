@@ -494,10 +494,10 @@ setMethod('length', signature('dbSpatProxyData'), function(x) {
 ## colTypes ####
 
 #' @name colTypes
-#' @title Column data types of GiottoDB objects
+#' @title Column data types of Duckling objects
 #' @description
 #' Get the column data types of objects that inherit from \code{'dbData'}
-#' @param x GiottoDB data object
+#' @param x Duckling data object
 #' @param ... additional params to pass
 #' @export
 setMethod('colTypes', signature(x = 'dbData'), function(x, ...) {
@@ -513,7 +513,7 @@ setMethod('colTypes', signature(x = 'dbData'), function(x, ...) {
 #' Sets a column to numeric after first checking the column data type. Does
 #' nothing if the column is already a \code{double}
 #' This precaution is to avoid truncation of values.
-#' @param x GiottoDB data object
+#' @param x Duckling data object
 #' @param col column to cast to numeric
 #' @param ... additional params to pass
 #' @export

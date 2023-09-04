@@ -37,6 +37,6 @@ For backward compatibility, NULL is equivalent to FALSE.}
 \item{...}{additional params to pass}
 }
 \description{
-internal function taht allows the addition of a primary key line to the table
+internal function that allows the addition of a primary key line to the table
 generation sql from sqlCreateTable
 }

@@ -2,9 +2,9 @@
 
 
 #' @name simulate_objects
-#' @title Simulate GiottoDB objects
+#' @title Simulate Duckling objects
 #' @description
-#' Create simulated GiottoDB objects in memory from pre-prepared data. Useful
+#' Create simulated Duckling objects in memory from pre-prepared data. Useful
 #' for testing purposes and examples.
 #' @param data data to use
 #' @param name remote name of table on database to set
