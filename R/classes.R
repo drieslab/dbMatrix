@@ -199,9 +199,23 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
 #' @export
 dbSparseMatrix = setClass(
   "dbSparseMatrix",
-  contains = "dbMatrix",
+  contains = "dbMatrix"
+)
+
+### dbSemiSparseMatrix ####
+#' @title S4 Class for dbSparseMatrix
+#'
+#' @description Representation of sparse matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data An ijx matrix without zeros
+#' @export
+dbSemiSparseMatrix = setClass(
+  "dbSemiSparseMatrix",
+  contains = "dbSparseMatrix",
   slots = list(
-    values = "list" # contains "i", "j", "x" vectors
+    min_row = 'numeric',
+    min_col = 'numeric'
   )
 )
 
@@ -215,11 +229,7 @@ dbSparseMatrix = setClass(
 #' @export
 dbDenseMatrix = setClass(
   "dbDenseMatrix",
-  contains = "dbMatrix",
-  slots = list(
-    values = "matrix" # TODO confirm if this is correct
-
-  )
+  contains = "dbMatrix"
 )
 
 ## dbDataFrame ####

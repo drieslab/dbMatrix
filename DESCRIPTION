@@ -1,11 +1,11 @@
 Package: Duckling
 Title: DuckDB Library for Integrative Genomics
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
 	person("Ruben", "Dries", email = "rubendries@gmail.com",
 		 role = c("aut")),
 	person("Jiaji", "George Chen", email = "jiajic@bu.edu",
-		 role = c("aut")),
+		 role = c("aut", "cre")),
 	person("Edward", "C.", "Ruiz", email = "ecr7407@gmail.com",
 		 role = c("aut", "cre"))
 	)
