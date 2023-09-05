@@ -24,6 +24,36 @@ simulate_duckdb = function(data = datasets::iris, name = 'test', p = NULL) {
   dplyr::tbl(p, name)
 }
 
+#' @describeIn simulate_objects Simulate a duckdb connection dplyr tbl_Pool in memory
+#' @export
+simulate_duckdb_dbSparseMatrix = function(name = 'test', p = NULL) {
+  if(is.null(p)) {
+    drv = duckdb::duckdb(dbdir = ':memory:')
+    p = pool::dbPool(drv)
+  }
+
+  # setup dummy matrix data
+  data <- matrix(0, nrow = 50, ncol = 50)
+
+  # Set row and column names
+  rownames(data) <- paste0("row", 1:50)
+  colnames(data) <- paste0("col", 1:50)
+
+  # Set 50 random values to non-zero
+  set.seed(123) # for reproducibility
+  non_zero_indices <- sample(1:(50*50), 50)
+  data[non_zero_indices] <- rnorm(50)
+
+  # Create dgc matrix and ijx matrix
+  dgc = as(data, "dgCMatrix")
+  ijx = Matrix::summary(dgc)
+
+  conn = pool::poolCheckout(p)
+  duckdb::duckdb_register(conn, df = ijx, name = name)
+  pool::poolReturn(conn)
+  dplyr::tbl(p, name)
+}
+
 
 #' @describeIn simulate_objects Simulate a dbDataFrame in memory
 #' @export
@@ -39,6 +69,19 @@ simulate_dbDataFrame = function(data = NULL, name = 'df_test', key = NA_characte
               init = TRUE, key = key)
 }
 
+#' @describeIn simulate_objects Simulate a dbSparseMatrix in memory
+#' @export
+simulate_dbSparseMatrix = function(data = NULL, name = 'ijx_test') {
+  if(is.null(data)) {
+    data = simulate_duckdb_dbSparseMatrix(name = name)
+  }
+  if(!inherits(data, 'tbl_sql')) {
+    checkmate::assert_class('dbMatrix')
+    data = simulate_duckdb_dbSparseMatrix(data = data, name = name)
+  }
+  dbSparseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
+                 init = TRUE)
+}
 
 #' @describeIn simulate_objects Simulate a dbPointsProxy in memory
 #' @export
