@@ -61,7 +61,7 @@ NULL
 #' @param remote_name name to assign the result in the database. Defaults to a
 #' generic incrementing 'gdb_nnn' if not given
 #' @param progress whether to plot the progress
-#' @param ... additional params to pass to GiottoDB object creation
+#' @param ... additional params to pass to Duckling object creation
 #' @return dbPolygonProxy or dbPointsProxy
 #' @export
 chunkSpatApplyPoly = function(x = NULL,

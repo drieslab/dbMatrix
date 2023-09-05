@@ -51,7 +51,7 @@ generic incrementing 'gdb_nnn' if not given}
 
 \item{progress}{whether to plot the progress}
 
-\item{...}{additional params to pass to GiottoDB object creation}
+\item{...}{additional params to pass to Duckling object creation}
 }
 \value{
 dbPolygonProxy or dbPointsProxy

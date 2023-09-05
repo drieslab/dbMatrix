@@ -10,7 +10,7 @@
 \S4method{existsTableBE}{ANY,character}(x, remote_name, ...)
 }
 \arguments{
-\item{x}{GiottoDB object or DB connection}
+\item{x}{Duckling object or DB connection}
 
 \item{...}{additional params to pass}
 }

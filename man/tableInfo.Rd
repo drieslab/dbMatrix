@@ -14,7 +14,7 @@
 }
 \arguments{
 \item{x}{connector object (hashID of backend, DBI connection, pool), or a
-GiottoDB object}
+duckling object}
 
 \item{remote_name}{(only needed if x is a connection object) name of table on DB}
 }
