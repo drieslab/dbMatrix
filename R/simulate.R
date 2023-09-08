@@ -35,10 +35,6 @@ simulate_duckdb_dbSparseMatrix = function(name = 'test', p = NULL) {
   # setup dummy matrix data
   data <- matrix(0, nrow = 50, ncol = 50)
 
-  # Set row and column names
-  rownames(data) <- paste0("row", 1:50)
-  colnames(data) <- paste0("col", 1:50)
-
   # Set 50 random values to non-zero
   set.seed(123) # for reproducibility
   non_zero_indices <- sample(1:(50*50), 50)
@@ -76,11 +72,14 @@ simulate_dbSparseMatrix = function(data = NULL, name = 'ijx_test') {
     data = simulate_duckdb_dbSparseMatrix(name = name)
   }
   if(!inherits(data, 'tbl_sql')) {
-    checkmate::assert_class('dbMatrix')
+    checkmate::assert_class('dbSparseMatrix')
     data = simulate_duckdb_dbSparseMatrix(data = data, name = name)
   }
+
+  # row_names <- as.factor(paste0("row", 1:50)) # hardcode for now
+  # col_names <- as.factor(paste0("col", 1:50)) # hardcode for now
   dbSparseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
-                 init = TRUE)
+                 dims = c(50L,50L), init = TRUE)
 }
 
 #' @describeIn simulate_objects Simulate a dbPointsProxy in memory

@@ -166,7 +166,7 @@ setMethod('Ops', signature(e1 = 'dbMatrix', e2 = 'dbMatrix'), function(e1, e2)
 # rowSums ####
 #' @rdname hidden_aliases
 #' @export
-setMethod('rowSums', signature(x = 'dbMatrix'),
+setMethod('rowSums', signature(x = 'dbDenseMatrix'),
           function(x, ...)
           {
             x = reconnect(x)
@@ -182,6 +182,24 @@ setMethod('rowSums', signature(x = 'dbMatrix'),
             names(vals) = val_names
             vals
           })
+
+# setMethod('rowSums', signature(x = 'dbSparseMatrix'),
+#           function(x, ...)
+#           {
+#             x = reconnect(x)
+#             x = castNumeric(x)
+#
+#             #val_names = rownames(x)
+#             vals = x[] %>%
+#               dplyr::group_by(i) %>%
+#               dplyr::summarise(sum_x = sum(x, na.rm = TRUE)) %>%
+#               dplyr::arrange(i) %>%
+#               dplyr::collapse() %>%
+#               dplyr::pull(sum_x)
+#             #names(vals) = val_names
+#             vals
+#           })
+
 # colSums ####
 #' @rdname hidden_aliases
 #' @export
@@ -204,43 +222,73 @@ setMethod('colSums', signature(x = 'dbMatrix'),
 # rowMeans ####
 #' @rdname hidden_aliases
 #' @export
-setMethod('rowMeans', signature(x = 'dbMatrix'),
+setMethod('rowMeans', signature(x = 'dbDenseMatrix'),
           function(x, ...)
           {
             x = reconnect(x)
             x = castNumeric(x)
 
-            val_names = rownames(x)
+            # val_names = rownames(x)
             vals = x[] %>%
               dplyr::group_by(i) %>%
               dplyr::summarise(mean_x = mean(x, na.rm = TRUE)) %>%
               dplyr::arrange(i) %>%
               dplyr::collapse() %>%
               dplyr::pull(mean_x)
-            names(vals) = val_names
+            # names(vals) = val_names
             vals
           })
-# colMeans ####
+
 #' @rdname hidden_aliases
 #' @export
-setMethod('colMeans', signature(x = 'dbMatrix'),
+setMethod('rowMeans', signature(x = 'dbSparseMatrix'),
           function(x, ...)
           {
             x = reconnect(x)
             x = castNumeric(x)
 
-            val_names = colnames(x)
+            val_names = rownames(x) #TODO: add rownames
+            n_rows <- dim(x)[1]
+            col_sums = Duckling::rowSums(x)
+            vals = col_sums / n_rows
+            names(vals) = val_names #TODO: add colnames
+            vals
+          })
+# colMeans ####
+#' @rdname hidden_aliases
+#' @export
+setMethod('colMeans', signature(x = 'dbDenseMatrix'),
+          function(x, ...)
+          {
+            x = reconnect(x)
+            x = castNumeric(x)
+
+            # val_names = colnames(x)
             vals = x[] %>%
               dplyr::group_by(j) %>%
               dplyr::summarise(mean_x = mean(x, na.rm = TRUE)) %>%
               dplyr::arrange(j) %>%
               dplyr::collapse() %>%
               dplyr::pull(mean_x)
-            names(vals) = val_names
+            # names(vals) = val_names
             vals
           })
 
+#' @rdname hidden_aliases
+#' @export
+setMethod('colMeans', signature(x = 'dbSparseMatrix'),
+          function(x, ...)
+          {
+            x = reconnect(x)
+            x = castNumeric(x)
 
+            # val_names = rownames(x) #TODO: add rownames
+            n_cols <- dim(x)[2]
+            col_sums = Duckling::colSums(x)
+            vals = col_sums / n_cols
+            # names(vals) = val_names #TODO: add colnames
+            vals
+          })
 
 
 # colSds ####
