@@ -170,8 +170,12 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
     dplyr::filter(i %in% p_rown & j %in% p_coln) %>%
     data.table::as.data.table()
   data.table::setkeyv(preview_dt, c('i', 'j')) # enforce ordering
-  preview_dt = data.table::dcast(preview_dt, formula = i ~ j, value.var = 'x')
-  colnames(preview_dt) = NULL
+  if(nrow(preview_dt) > 0) {
+    preview_dt = data.table::dcast(preview_dt, formula = i ~ j, value.var = 'x')
+    colnames(preview_dt) = NULL
+  } else {
+    print("") # TODO update this for sparse matrix
+  }
 
   if(nrow(preview_dt < 7L)) {
     print(preview_dt, digits = 5L, row.names = 'none')
