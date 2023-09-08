@@ -76,7 +76,7 @@ setMethod('initialize', signature(.Object = 'dbData'),
 overwrite_handler = function(p, remote_name, overwrite = FALSE) {
   checkmate::assert_character(remote_name, len = 1L)
   checkmate::assert_logical(overwrite, len = 1L)
-  p = evaluate_conn(p, mode = 'pool')
+  checkmate::assert_class(p, 'Pool')
 
   # overwrite
   if(existsTableBE(p, remote_name = remote_name)) {

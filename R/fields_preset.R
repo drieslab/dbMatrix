@@ -1,6 +1,7 @@
+
 #' internal function that allows the addition of a primary key line to the table
 #' generation sql from sqlCreateTable
-#' @name sql_create_table
+#' @name sql_create_pk_table
 #' @title Generate sql to create a table with a primary key
 #' @param con A database connection
 #' @param table table name

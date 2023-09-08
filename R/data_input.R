@@ -325,6 +325,46 @@ streamSpatialToDB_arrow = function(path,
 
 
 
+
+
+# resume ####
+
+resumeStreamToDB_fread = function(path,
+                                  backend_ID,
+                                  remote_name = 'test',
+                                  idx_col = NULL,
+                                  skip = 0L,
+                                  nlines = 10000L,
+                                  cores = 1L,
+                                  callback = NULL,
+                                  ...) {
+  checkmate::assert_file_exists(path)
+  checkmate::assert_character(remote_name)
+  checkmate::assert_numeric(skip, len = 1L)
+  checkmate::assert_numeric(nlines, len = 1L)
+  skip = as.integer(skip)
+  nlines = as.integer(nlines)
+  if(!is.null(idx_col)) checkmate::assert_character(idx_col, len = 1L)
+  p = evaluate_conn(backend_ID, mode = 'pool')
+
+  # Expect that table setup is already complete. Only functionality related
+  # to data input and callbacks are needed.
+  # Do not check for overwrite
+
+  # read loop
+  # stop conditions:
+  # - chunk nrow is less than 'nlines'
+  # - fread throws error that there are fewer lines than 'skip' expects
+
+}
+
+
+
+
+
+
+
+
 # chunk reading callbacks ####
 
 #' @name callback_combineCols
