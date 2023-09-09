@@ -2,12 +2,12 @@ Package: Duckling
 Title: DuckDB Library for Integrative Genomics
 Version: 0.1.3
 Authors@R: c(
-  person("Edward", "C.", "Ruiz", email = "ecr7407@gmail.com",
-		 role = c("aut", "cre")),
+  person("Edward", "Ruiz", email = "ecr7407@gmail.com",
+		 role = c("aut")),
   person("Jiaji", "George Chen", email = "jiajic@bu.edu",
-		 role = c("aut", "cre")),
+		 role = c("aut")),
 	person("Ruben", "Dries", email = "rubendries@gmail.com",
-		 role = c("aut"))
+		 role = c("aut", "cre"))
 	)
 Maintainer: Ruben Dries <rubendries@gmail.com>
 Description: Quack
