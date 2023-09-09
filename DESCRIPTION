@@ -58,7 +58,6 @@ Collate:
     'connection.R'
     'data_input.R'
     'dbDataFrame.R'
-    'matrix_to_dt.R'
     'dbMatrix.R'
     'dbSpatProxy.R'
     'dd.R'

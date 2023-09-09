@@ -1,7 +1,3 @@
-
-
-
-
 # initialize dbMatrix ####
 
 # Method for initializing dbMatrix. Concerns only the processing that is related
@@ -42,11 +38,6 @@ setMethod(
     return(.Object)
   })
 
-
-
-
-
-
 # Basic function to generate a dbMatrix object given an input to the matrix param.
 
 #' @title Create a matrix with database backend
@@ -75,93 +66,93 @@ setMethod(
 #' it is a \code{tbl_Pool} and whether the table exists within the specified
 #' backend then directly passed downstream.
 #' @include matrix_to_dt.R
-#' @export
-createDBMatrix = function(matrix,
-                          remote_name = 'mat_test',
-                          db_path = ':temp:',
-                          overwrite = FALSE,
-                          cores = 1L,
-                          nlines = 10000L,
-                          callback = callback_formatIJX(),
-                          custom_table_fields = fields_preset$dbMatrix_ijx,
-                          dims,
-                          dim_names,
-                          ...) {
-  db_path = getDBPath(db_path)
-  backend_ID = calculate_backend_id(db_path)
-  p = getBackendPool(backend_ID)
-  if(inherits(matrix, 'tbl')) assert_in_backend(x = matrix, p = p)
-
-  data = NULL
-  if(inherits(matrix, 'tbl_Pool')) { # data is already in DB and tbl is provided
-    data = matrix
-  } else { # data must be read in
-
-    # database input #
-    overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
-
-    # read matrix if needed
-    if(is.character(matrix)) {
-      streamToDB_fread(path = matrix,
-                       backend_ID = backend_ID,
-                       remote_name = remote_name,
-                       # indices = c('i', 'j'),
-                       nlines = nlines,
-                       cores = cores,
-                       callback = callback,
-                       overwrite = overwrite,
-                       custom_table_fields = custom_table_fields,
-                       ...)
-    }
-
-    # convert to Matrix to IJX format if needed
-    if(inherits(matrix, 'Matrix')) {
-      ijx = get_ijx_zero_dt(matrix)
-      DBI::dbWriteTable(conn = p,
-                        name = remote_name,
-                        value = ijx,
-                        ...)
-    }
-  }
-
-
-  # set dim names #
-  mtx_tbl = dplyr::tbl(p, remote_name)
-  r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
-  c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
-
-
-  dbMat = new('dbDenseMatrix',
-              data = data,
-              hash = backend_ID,
-              remote_name = remote_name,
-              dim_names = list(r_names,
-                               c_names),
-              dims = c(length(r_names),
-                       length(c_names)))
-
-  return(dbMat)
-}
-
-
+# #' @export
+# createDBMatrix = function(matrix,
+#                           remote_name = 'mat_test',
+#                           db_path = ':temp:',
+#                           overwrite = FALSE,
+#                           cores = 1L,
+#                           nlines = 10000L,
+#                           callback = callback_formatIJX(),
+#                           custom_table_fields = fields_preset$dbMatrix_ijx,
+#                           dims,
+#                           dim_names,
+#                           ...) {
+#   db_path = getDBPath(db_path)
+#   backend_ID = calculate_backend_id(db_path)
+#   p = getBackendPool(backend_ID)
+#   if(inherits(matrix, 'tbl')) assert_in_backend(x = matrix, p = p)
+# 
+#   data = NULL
+#   if(inherits(matrix, 'tbl_Pool')) { # data is already in DB and tbl is provided
+#     data = matrix
+#   } else { # data must be read in
+# 
+#     # database input #
+#     overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
+# 
+#     # read matrix if needed
+#     if(is.character(matrix)) {
+#       streamToDB_fread(path = matrix,
+#                        backend_ID = backend_ID,
+#                        remote_name = remote_name,
+#                        # indices = c('i', 'j'),
+#                        nlines = nlines,
+#                        cores = cores,
+#                        callback = callback,
+#                        overwrite = overwrite,
+#                        custom_table_fields = custom_table_fields,
+#                        ...)
+#     }
+# 
+#     # convert to Matrix to IJX format if needed
+#     if(inherits(matrix, 'Matrix')) {
+#       ijx = get_ijx_zero_dt(matrix)
+#       DBI::dbWriteTable(conn = p,
+#                         name = remote_name,
+#                         value = ijx,
+#                         ...)
+#     }
+#   }
+# 
+# 
+#   # set dim names #
+#   mtx_tbl = dplyr::tbl(p, remote_name)
+#   r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
+#   c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
+# 
+# 
+#   dbMat = new('dbDenseMatrix',
+#               data = data,
+#               hash = backend_ID,
+#               remote_name = remote_name,
+#               dim_names = list(r_names,
+#                                c_names),
+#               dims = c(length(r_names),
+#                        length(c_names)))
+# 
+#   return(dbMat)
+# }
 
 
 
 
-# compute / DB table creation from lazy dplyr query results ####
+
+
+# compute / DB table creation from lazy dplyr query results
 # Based on functions in CDMConnector/R/compute.R
 
-#' #' @name computeDBMatrix
-#' #' @title Execute dplyr query of dbMatrix and save the results in remote database
-#' #' @description
-#' #' Calculate the lazy query of a dbMatrix object and send it to the database backend
-#' #' either as a temporary or permanent table.
-#' #' @param x dbData object to compute from
-#' #' @param remote_name name of table to create on DB
-#' #' @param temporary (default = TRUE) whether to make a temporary table on the DB
-#' #' @param overwrite (default = FALSE) whether to overwrite if remote_name already exists
-#' #' @param ... additional params to pass
-#' #' @export
+#' @name computeDBMatrix
+#' @title Execute dplyr query of dbMatrix and save the results in remote database
+#' @description
+#' Calculate the lazy query of a dbMatrix object and send it to the database backend
+#' either as a temporary or permanent table.
+#' @param x dbData object to compute from
+#' @param remote_name name of table to create on DB
+#' @param temporary (default = TRUE) whether to make a temporary table on the DB
+#' @param overwrite (default = FALSE) whether to overwrite if remote_name already exists
+#' @param ... additional params to pass
+# #' @export
 #' computeDBMatrix = function(x,
 #'                            remote_name = 'test',
 #'                            temporary = TRUE,
@@ -227,7 +218,7 @@ createDBMatrix = function(matrix,
 #'   return(dbMat)
 #' }
 
-#' @create_dbSparseMatrix Simulate a duckdb table
+#' @createDBSparseMatrix Simulate a duckdb table
 #'
 #'
 #' @param name The name of the table (default: 'test')
@@ -238,7 +229,7 @@ createDBMatrix = function(matrix,
 #' @describeIn simulate_objects Simulate a duckdb connection dplyr tbl_Pool in memory
 #'
 #' @internal
-create_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test', p = NULL,
+createDBSparseMatrix = function(dgc = NULL, name = 'sparse_test', p = NULL,
                                  seed_num = 42) {
   if(is.null(p)) {
     drv = duckdb::duckdb(dbdir = ':memory:')
@@ -247,7 +238,7 @@ create_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test', p = NULL,
 
   if(is.null(dgc)){
     # create simulated dgc matrix
-    dgc = Duckling:::simulate_dgc(num_rows = 50, num_cols = 50,
+    dgc = Duckling:::sim_dgc(num_rows = 50, num_cols = 50,
                                   seed_num = seed_num)
 
     # Create triplicate vector representation of simulated dgc matrix
@@ -262,7 +253,7 @@ create_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test', p = NULL,
   dplyr::tbl(p, name)
 }
 
-#' @create_dbDenseMatrix Simulate a duckdb table
+#' @createDBDenseMatrix Simulate a duckdb table
 #'
 #'
 #' @param name The name of the table (default: 'test')
@@ -273,14 +264,14 @@ create_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test', p = NULL,
 #' @describeIn simulate_objects Simulate a duckdb connection dplyr tbl_Pool in memory
 #'
 #' @internal
-create_dbDenseMatrix = function(mat = NULL, name = 'dense_test', p = NULL) {
+createDBDenseMatrix = function(mat = NULL, name = 'dense_test', p = NULL) {
   if(is.null(p)) {
     drv = duckdb::duckdb(dbdir = ':memory:')
     p = pool::dbPool(drv)
   }
 
   if(is.null(mat)){
-    # dgc = Duckling:::simulate_dgc(num_rows = 50, num_cols = 50, seed_num = 42)
+    # dgc = Duckling:::sim_dgc(num_rows = 50, num_cols = 50, seed_num = 42)
     mat = as.matrix(MASS::Animals)
 
     dense_mat = Duckling:::create_dense_ijx_dt(mat)
