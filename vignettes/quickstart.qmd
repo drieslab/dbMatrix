@@ -15,25 +15,25 @@ with them at a basic level.
 ## Class Structure of Duckling
 [![](https://mermaid.ink/img/pako:eNp1VNtu2zAM_RVDT9ua-z3GMKBDuqHAggZpN2Cbh4CWGUeILbmy3CUN8u9jbDl1jOzFEg-PDymS0oFxFSBzGY8gTWcCQg2xJ3PLmWV8GwkZOoffP-6XT99vv_05lj4f-BZlcC_Xyjl40nFuAi1eUK84RJHr8A1o4AZ14fJXCZhNHd5AWseaGrmSErn5XAR4996T56CBPwMDRbxzSkUEwl3H-NFqoVT0P_UbjbEyuJIQY90lpDCuE6lQ0AkuU6nlMAejxa48tYhzuZT-FakpMTKFNBjaU91qYTYnGdo_JKndkVAJchV9sFut_pZbc-X0X6hBaINvcX_hX6hoHyq50Gq3txQwlKyfGTpv5f_cJVcJ8SuJXigRmlaFTmzCrtFxp-TS0nwMihXidgqxkxtrSM1z-_SF3H7h69PaarUugj7SkAiIrvX3693D_O5p-dPN65IWxOcM9d6WKqBZDfzSU6vbfQwh5qo1XVJ20j51Tm5LMwFNuqb9CloXWC7lyfNtaDY_2VrWwMqd8KSd1TeyLXy1ix-bzaJ4NXoxYSfQzloBU310im_Oql1SMBZ12gVhhrLqqwS11bfCeSMKR3WqrnnPk1ITzKvOGixGHYMI6JHJW-Axs0GqBHNpG-Aassh4jIpMVMiMetxLzlyjM2ywLKGLjfZZKsEE5C-lqiZzD2zH3N5w2Or0RpNBdzDuTnrT6bDB9swd91vTcacz7o27I8L7vWODveYCnda0PxqSY9rpDoaT8aDBMBBG6bl9FE_L8R-G8rzk?type=png)](https://mermaid.live/edit#pako:eNp1VNtu2zAM_RVDT9ua-z3GMKBDuqHAggZpN2Cbh4CWGUeILbmy3CUN8u9jbDl1jOzFEg-PDymS0oFxFSBzGY8gTWcCQg2xJ3PLmWV8GwkZOoffP-6XT99vv_05lj4f-BZlcC_Xyjl40nFuAi1eUK84RJHr8A1o4AZ14fJXCZhNHd5AWseaGrmSErn5XAR4996T56CBPwMDRbxzSkUEwl3H-NFqoVT0P_UbjbEyuJIQY90lpDCuE6lQ0AkuU6nlMAejxa48tYhzuZT-FakpMTKFNBjaU91qYTYnGdo_JKndkVAJchV9sFut_pZbc-X0X6hBaINvcX_hX6hoHyq50Gq3txQwlKyfGTpv5f_cJVcJ8SuJXigRmlaFTmzCrtFxp-TS0nwMihXidgqxkxtrSM1z-_SF3H7h69PaarUugj7SkAiIrvX3693D_O5p-dPN65IWxOcM9d6WKqBZDfzSU6vbfQwh5qo1XVJ20j51Tm5LMwFNuqb9CloXWC7lyfNtaDY_2VrWwMqd8KSd1TeyLXy1ix-bzaJ4NXoxYSfQzloBU310im_Oql1SMBZ12gVhhrLqqwS11bfCeSMKR3WqrnnPk1ITzKvOGixGHYMI6JHJW-Axs0GqBHNpG-Aassh4jIpMVMiMetxLzlyjM2ywLKGLjfZZKsEE5C-lqiZzD2zH3N5w2Or0RpNBdzDuTnrT6bDB9swd91vTcacz7o27I8L7vWODveYCnda0PxqSY9rpDoaT8aDBMBBG6bl9FE_L8R-G8rzk)
 
-We are currently working on implementing the following generics.
+Duckling currently supports the following generic methods.
 
-|         | dbSparseMatrix | dbSemiSparseMatrix | dbDataFrame |
-|---------|----------------|--------------------|-------------|
-| colSums | ✅              | ✅                  | 🟧           |
-| rowSums | ✅              | ✅                  | 🟧           |
-| colMean | ✅              | 🟧                  | 🟧           |
-| rowMean | ✅              | 🟧                  | 🟧           |
-| colSds  | 🟧              | 🟧                  | 🟧           |
-| rowSds  | 🟧              | 🟧                  | 🟧           |
-| t       | ✅              | ✅                  | 🟧           |
-| mean    | ✅              | ✅                  | 🟧           |
-| nrow    | ✅              | ✅                  | ✅           |
-| ncol    | ✅              | ✅                  | ✅           |
-| dim     | ✅              | ✅                  | ✅           |
-| head    | 🟧              | 🟧                  | 🟧           |
-| tail    | 🟧              | 🟧                  | 🟧           |
-| math    | 🟧              | 🟧                  | 🟧           |
-| ...     |                |                    |             |
+|         | dbSparseMatrix | dbDenseMatrix | dbDataFrame |
+|---------|----------------|---------------|-------------|
+| colSums | ✅              | ✅             | -           |
+| rowSums | ✅              | ✅             | -           |
+| colMean | ✅              | ✅             | -           |
+| rowMean | ✅              | ✅             | -           |
+| colSds  | 🟧              | ✅             | -           |
+| rowSds  | 🟧              | ✅             | -           |
+| t       | ✅              | ✅             | -           |
+| mean    | ✅              | ✅             | -           |
+| nrow    | ✅              | ✅             | ✅           |
+| ncol    | ✅              | ✅             | ✅           |
+| dim     | ✅              | ✅             | ✅           |
+| head    | 🟧              | ✅             | 🟧           |
+| tail    | 🟧              | ✅             | 🟧           |
+| math    | 🟧              | ✅             | -           |
+| ...     |                |               |             |
 
 ## Loading library
 
@@ -52,18 +52,17 @@ library(dplyr)
 ## Working with large matrices with dbMatrix
 `dbMatrix` consists of three subclasses that are designed to work with different
 types of matrices. All `dbMatrix` subclasses currently support basic generic operations
-as listed below.
+as listed below, with more to be likely added in the future.
 
 
 ### Sparse matrices 
 We represent sparse matrices using a triplicate format with `i`, `j`, and `x` vectors.
 `i` and `j` refer to the row and column indices, respectively, with specific
-`x` values or counts.
+`x` values or counts. 
 
-We convert in-memory dgCMatrices into ijx matrices using `Matrix::summary(dgc)`. 
-
-The `dbSparseMatrix` class stores this ijx matrix (tehnically now a data.frame)
-with their associated dimnames.  
+The `dbSparseMatrix` class stores this ijx matrix (now tehnically a data.frame)
+with their associated dimension names and dimensions. It does not contain zeros.
+Zero values are inferred based on the stored dimensions.
  
 ```{r eval=TRUE, message=FALSE, warning=FALSE}
 # Simulate dbSparseMatrix
@@ -78,6 +77,16 @@ dim(sparse)
 
 mean(sparse)
 ```
+
+### Dense matrices 
+We use the same approach as sparse matrices to convert a matrix into a triplicate
+`i`, `j`, and `x` vector data.frame format. All values in the `x` vector are 
+retained and the `i` and `j` vectors represent the dimnames.
+
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+dense = simulate_dbDenseeMatrix()
+```
+
 
 ## Working with large data.frames with dbDataFrame
 Large data.frames can be stored as dbDataFrames directly in DuckDB since they
