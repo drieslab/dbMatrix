@@ -6,7 +6,7 @@
 \alias{simulate_dbDataFrame}
 \alias{simulate_dbPointsProxy}
 \alias{simulate_dbPolygonProxy}
-\title{Simulate GiottoDB objects}
+\title{Simulate Duckling objects}
 \usage{
 simulate_duckdb(data = datasets::iris, name = "test", p = NULL)
 
@@ -22,7 +22,7 @@ simulate_dbPolygonProxy(data = NULL)
 \item{name}{remote name of table on database to set}
 }
 \description{
-Create simulated GiottoDB objects in memory from pre-prepared data. Useful
+Create simulated Duckling objects in memory from pre-prepared data. Useful
 for testing purposes and examples.
 }
 \section{Functions}{

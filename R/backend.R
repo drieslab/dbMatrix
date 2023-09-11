@@ -244,7 +244,7 @@ get_full_table_name_quoted = function(conn, remote_name) {
 #' @name tableInfo
 #' @title Get information about the database table
 #' @param x connector object (hashID of backend, DBI connection, pool), or a
-#' GiottoDB object
+#' duckling object
 #' @param remote_name (only needed if x is a connection object) name of table on DB
 #' @return a data.table of information about the specified table on the database
 #' @examples

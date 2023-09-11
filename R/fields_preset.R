@@ -1,6 +1,4 @@
-
-
-#' internal function taht allows the addition of a primary key line to the table
+#' internal function that allows the addition of a primary key line to the table
 #' generation sql from sqlCreateTable
 #' @name sql_create_table
 #' @title Generate sql to create a table with a primary key
@@ -41,12 +39,6 @@ sql_create_pk_table = function(con,
   dbplyr::sql(gsub('\n)\n$', pk_line, base_statement))
 }
 
-
-
-
-
-
-
 # internal function to swap out fields instructions if custom input is provided
 # as a named list through fields_custom. Escaping of fields through
 # dbQuoteIdentifier() is not needed since values are ONLY swapped if a match is
@@ -64,14 +56,6 @@ sql_create_table_field_swap = function(statement,
   }
   return(dplyr::sql(statement))
 }
-
-
-
-
-
-
-
-
 
 #' @name createTableBE
 #' @title Create a table in the database backend
@@ -116,7 +100,7 @@ createTableBE = function(conn,
       ...
     )
   } else {
-    statement = sql_create_pk_table(con = conn,
+    statement = sql_create_pk_table(con = conn, #? why use this function? what happens if you want to overwrite a table?
                                     table = name,
                                     fields = fields_df,
                                     pk = pk,

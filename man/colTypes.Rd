@@ -2,12 +2,12 @@
 % Please edit documentation in R/operations.R
 \name{colTypes}
 \alias{colTypes}
-\title{Column data types of GiottoDB objects}
+\title{Column data types of Duckling objects}
 \usage{
 \S4method{colTypes}{dbData}(x, ...)
 }
 \arguments{
-\item{x}{GiottoDB data object}
+\item{x}{Duckling data object}
 
 \item{...}{additional params to pass}
 }

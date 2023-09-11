@@ -27,8 +27,6 @@ readMatrixDT = function(path,
   DT = suppressWarnings(data.table::fread(input = path, nThread = cores))
   mtx = as.matrix(DT[,-1])
 
-
-
   if(isTRUE(transpose)) {
     mtx = Matrix::Matrix(data = mtx,
                          dimnames = list(DT[[1]], colnames(DT[,-1])),
@@ -38,9 +36,6 @@ readMatrixDT = function(path,
 
   return(mtx)
 }
-
-
-
 
 
 # Other similar functions can be easily added by swapping out the repeat loop and
@@ -92,10 +87,8 @@ streamToDB_fread = function(path,
   if(!is.null(custom_table_fields)) stopifnot(is.character(custom_table_fields))
   p = evaluate_conn(backend_ID, mode = 'pool')
 
-
   # overwrite if necessary
   overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
-
 
   # get rows
   fext = file_extension(path)
@@ -490,12 +483,12 @@ callback_swapCols = function(x, c1, c2) {
 
 
 # @name writeAsGDB
-# @title Write an object into the database backend as a GiottoDB object
+# @title Write an object into the database backend as a Duckling object
 # @description
 # Given a matrix, data.frame-like object, or SpatVector polygon or points,
 # write the values to database. Supports appending of information in case this
 # data should be added iteratively into the database (such as when operations
-# are parallelized). Returns a GiottoDB object of the analogous class.
+# are parallelized). Returns a Duckling object of the analogous class.
 # @param backend_ID backend_ID, or pool object with which to associate this object
 # to a specific database backend
 # @param x object to write

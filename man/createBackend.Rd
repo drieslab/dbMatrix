@@ -2,7 +2,7 @@
 % Please edit documentation in R/connection.R
 \name{createBackend}
 \alias{createBackend}
-\title{Create GiottoDB backend}
+\title{Create Duckling backend}
 \usage{
 createBackend(
   drv = duckdb::duckdb(),

@@ -14,10 +14,10 @@ NULL
 # Virtual parent non-spatial classes ####
 
 
-## GiottoDB ####
+## Duckling ####
 # Overarching package class
 #' @noRd
-setClass('GiottoDB', contains = 'VIRTUAL')
+setClass('Duckling', contains = 'VIRTUAL')
 
 
 
@@ -32,7 +32,7 @@ setClass('GiottoDB', contains = 'VIRTUAL')
 #' @slot init logical. Whether the object is fully initialized
 #' @noRd
 setClass('dbData',
-         contains = c('GiottoDB',
+         contains = c('Duckling',
                       'VIRTUAL'),
          slots = list(
            data = 'ANY',
@@ -67,7 +67,7 @@ setClass('dbData',
 #' @slot hash xxhash64 hash of the db_path
 #' @export
 setClass('backendInfo',
-         contains = c('GiottoDB'),
+         contains = c('Duckling'),
          slots = list(
            driver_call = 'character',
            db_path = 'character',
@@ -102,7 +102,7 @@ setClass('backendInfo',
 #' @export
 dbMatrix = setClass(
   'dbMatrix',
-  contains = 'dbData',
+  contains = c('dbData', 'VIRTUAL'),
   slots = list(
     dim_names = 'list',
     dims = 'integer'
@@ -114,10 +114,7 @@ dbMatrix = setClass(
 )
 
 
-
-
-
-setMethod('show', signature(object = 'dbMatrix'), function(object) {
+setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
   object = reconnect(object)
 
   cat('backend_ID : ', object@hash, '\n')
@@ -131,10 +128,10 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
   # -------------------- #
 
   if(identical(object@dims,  c(0L, 0L))) {
-    cat('0 x 0 matrix of class "dbMatrix"\n')
+    cat('0 x 0 matrix of class "dbDenseMatrix"\n')
     return() # exit early if no info
   } else {
-    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbMatrix"\n')
+    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbDenseMatrix"\n')
   }
 
 
@@ -173,8 +170,12 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
     dplyr::filter(i %in% p_rown & j %in% p_coln) %>%
     data.table::as.data.table()
   data.table::setkeyv(preview_dt, c('i', 'j')) # enforce ordering
-  preview_dt = data.table::dcast(preview_dt, formula = i ~ j, value.var = 'x')
-  colnames(preview_dt) = NULL
+  if(nrow(preview_dt) > 0) {
+    preview_dt = data.table::dcast(preview_dt, formula = i ~ j, value.var = 'x')
+    colnames(preview_dt) = NULL
+  } else {
+    print("") # TODO update this for sparse matrix
+  }
 
   if(nrow(preview_dt < 7L)) {
     print(preview_dt, digits = 5L, row.names = 'none')
@@ -191,9 +192,49 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
 
 })
 
+### dbDenseMatrix ####
+#' @title S4 Class for dbDenseMatrix
+#'
+#' @description Representation of dense matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data A dense ijx dataframe/tibble
+#' @export
+dbDenseMatrix = setClass(
+  "dbDenseMatrix",
+  contains = "dbMatrix"
+)
+
+### dbSparseMatrix ####
+#' @title S4 Class for dbSparseMatrix
+#'
+#' @description Representation of sparse matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data A sparse ijx dataframe/tibble
+#' @export
+dbSparseMatrix = setClass(
+  "dbSparseMatrix",
+  contains = "dbMatrix"
+)
 
 
-
+### dbSemiSparseMatrix ####
+#' @title S4 Class for dbSparseMatrix
+#'
+#' @description Representation of sparse matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data An ijx matrix without zeros
+#' @export
+dbSemiSparseMatrix = setClass(
+  "dbSemiSparseMatrix",
+  contains = "dbSparseMatrix",
+  slots = list(
+    min_row = 'numeric',
+    min_col = 'numeric'
+  )
+)
 
 
 ## dbDataFrame ####
@@ -418,22 +459,22 @@ print_dbPointsProxy = function(x, n, ...) {
 # Virtual Class Unions ####
 
 ## dgbIndex ####
-#' @title Virtual Class "gdbIndex" - Simple Class for GiottoDB indices
+#' @title Virtual Class "gdbIndex" - Simple Class for Duckling indices
 #' @name gdbIndex
 #' @description
 #' This is a virtual class used for indices (in signatures) for indexing
-#' and sub-assignment of 'GiottoDB' objects. Simple class union of 'logical',
+#' and sub-assignment of 'Duckling' objects. Simple class union of 'logical',
 #' 'numeric', 'integer', and  'character'.
 #' Based on the 'index' class implemented in \pkg{Matrix}
 #' @keywords internal
 #' @noRd
 setClassUnion('gdbIndex',
               members = c('logical', 'numeric', 'integer', 'character'))
-#' @title Virtual Class "gdbIndexNonChar" - Simple Class for GiottoDB indices
+#' @title Virtual Class "gdbIndexNonChar" - Simple Class for Duckling indices
 #' @name gdbIndex
 #' @description
 #' This is a virtual class used for indices (in signatures) for indexing
-#' and sub-assignment of 'GiottoDB' objects. Simple class union of 'logical' and
+#' and sub-assignment of 'Duckling' objects. Simple class union of 'logical' and
 #' 'numeric'.
 #' Based on the 'index' class implemented in \pkg{Matrix}
 #' @keywords internal
@@ -442,7 +483,7 @@ setClassUnion('gdbIndexNonChar',
               members = c('logical', 'numeric'))
 
 ## dbMF ####
-#' @title Virtual Class "dbMFData" - Simple class for GiottoDB matrix and dataframes
+#' @title Virtual Class "dbMFData" - Simple class for Duckling matrix and dataframes
 #' @name dbMFData
 #' @description
 #' This is a virtual class used to refer to dbMatrix and dbDataFrame objects as

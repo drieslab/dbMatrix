@@ -15,7 +15,7 @@ assert_DT = function(x) {
 }
 
 assert_dbData = function(x) {
-  stopifnot('Input is not a GiottoDB object' =
+  stopifnot('Input is not a duckling object' =
               inherits(x, 'dbData'))
 }
 

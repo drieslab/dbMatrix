@@ -14,7 +14,7 @@ NULL
 
 
 #' @rdname hidden_aliases
-#' @title Convert a GiottoDB object to a matrix
+#' @title Convert a Duckling object to a matrix
 #' @param x dbMatrix
 #' @param ... additional params to pass
 #' @export

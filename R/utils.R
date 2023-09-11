@@ -54,7 +54,7 @@ wrap_txt = function(..., sep = ' ', strWidth = 100, errWidth = FALSE) {
 
 # Custom stop function
 stopf = function(...) {
-  wrap_txt('GiottoDB:', ..., errWidth = TRUE) %>%
+  wrap_txt('Duckling:', ..., errWidth = TRUE) %>%
     stop(call. = FALSE)
 }
 
@@ -205,7 +205,7 @@ getBackendID = function(path = ':temp:', extension = '.duckdb') {
 
 #' @name calculate_backend_id
 #' @title Calculate a backend ID
-#' @description Calculate a GiottoDB backend ID from its filepath. A hash value
+#' @description Calculate a Duckling backend ID from its filepath. A hash value
 #' is calculate and pre-pended with 'ID_' for clarity.
 #' @param path filepath to database backend
 #' @keywords internal

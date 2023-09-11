@@ -127,7 +127,7 @@ setMethod('validBE', signature(x = 'dbData'), function(x) {
 # listTablesBE ####
 #' @name listTablesBE
 #' @title List the tables in a connection
-#' @param x GiottoDB object or DB connection
+#' @param x Duckling object or DB connection
 #' @param ... additional params to pass
 #' @export
 setMethod('listTablesBE', signature(x = 'dbData'), function(x, ...) {
@@ -161,7 +161,7 @@ setMethod('listTablesBE', signature(x = 'ANY'), function(x, ...) {
 # existsTableBE ####
 #' @name existsTableBE
 #' @title Whether a particular table exists in a connection
-#' @param x GiottoDB object or DB connection
+#' @param x Duckling object or DB connection
 #' @param ... additional params to pass
 #' @export
 setMethod('existsTableBE',
@@ -234,7 +234,7 @@ create_connection_pool = function(drv = 'duckdb::duckdb()',
 
 
 
-#' @title Create GiottoDB backend
+#' @title Create Duckling backend
 #' @name createBackend
 #' @description
 #' Defines and creates a database connection pool to be used by the backend.
@@ -420,7 +420,7 @@ setMethod('evaluate_conn', signature(conn = 'DBIConnection'),
 
 # reconnectBackend ####
 
-#' @title Reconnect GiottoDB backend
+#' @title Reconnect Duckling backend
 #' @name reconnectBackend-generic
 #' @aliases reconnectBackend
 #' @param x backendInfo object
