@@ -114,7 +114,7 @@ dbMatrix = setClass(
 )
 
 
-setMethod('show', signature(object = 'dbMatrix'), function(object) {
+setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
   object = reconnect(object)
 
   cat('backend_ID : ', object@hash, '\n')
@@ -128,10 +128,10 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
   # -------------------- #
 
   if(identical(object@dims,  c(0L, 0L))) {
-    cat('0 x 0 matrix of class "dbMatrix"\n')
+    cat('0 x 0 matrix of class "dbDenseMatrix"\n')
     return() # exit early if no info
   } else {
-    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbMatrix"\n')
+    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbDenseMatrix"\n')
   }
 
 
@@ -192,6 +192,18 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
 
 })
 
+### dbDenseMatrix ####
+#' @title S4 Class for dbDenseMatrix
+#'
+#' @description Representation of dense matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data A dense ijx dataframe/tibble
+#' @export
+dbDenseMatrix = setClass(
+  "dbDenseMatrix",
+  contains = "dbMatrix"
+)
 
 ### dbSparseMatrix ####
 #' @title S4 Class for dbSparseMatrix
@@ -199,12 +211,13 @@ setMethod('show', signature(object = 'dbMatrix'), function(object) {
 #' @description Representation of sparse matrices using an on-disk database.
 #' Inherits from dbMatrix.
 #'
-#' @slot data An ijx matrix without zeros
+#' @slot data A sparse ijx dataframe/tibble
 #' @export
 dbSparseMatrix = setClass(
   "dbSparseMatrix",
   contains = "dbMatrix"
 )
+
 
 ### dbSemiSparseMatrix ####
 #' @title S4 Class for dbSparseMatrix
@@ -223,18 +236,6 @@ dbSemiSparseMatrix = setClass(
   )
 )
 
-### dbDenseMatrix ####
-#' @title S4 Class for dbDenseMatrix
-#'
-#' @description Representation of dense matrices using an on-disk database.
-#' Inherits from dbMatrix.
-#'
-#' @slot data An ijx matrix with zeros
-#' @export
-dbDenseMatrix = setClass(
-  "dbDenseMatrix",
-  contains = "dbMatrix"
-)
 
 ## dbDataFrame ####
 
