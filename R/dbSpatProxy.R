@@ -649,6 +649,7 @@ svpoint_to_dt = function (spatvector, include_values = TRUE)
   else {
     DT_values = terra::crds(spatvector) %>% data.table::as.data.table()
   }
+  DT_values[, .uID := 1:.N]
   return(DT_values)
 }
 

@@ -331,9 +331,9 @@ file_extension = function(file)
 #' @title Create a counter
 #' @noRd
 result_count = function() {
-  count = sprintf('%03d', getOption('gdb.res_count'))
+  count = getOption('gdb.res_count')
   options(gdb.res_count = count + 1L)
-  paste0('gdb_', count)
+  paste0('gdb_', sprintf('%03d', count))
 }
 
 
