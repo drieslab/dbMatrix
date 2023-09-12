@@ -118,7 +118,7 @@ chunk_spat_apply = function(x = NULL,
 
   # determine chunking #
   # ------------------ #
-  n_rec = nrow(x)
+  n_rec = nrow(x) # number of records
   min_chunks = n_rec / n_per_chunk
   #' chunk_plan slightly expands bounds, allowing for use of 'soft' selections
   #' with 'extent_filter() on two sides during the chunk processing
