@@ -114,7 +114,7 @@ dbMatrix = setClass(
 )
 
 
-setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
+setMethod('show', signature(object = 'dbMatrix'), function(object) {
   object = reconnect(object)
 
   cat('backend_ID : ', object@hash, '\n')
@@ -128,10 +128,10 @@ setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
   # -------------------- #
 
   if(identical(object@dims,  c(0L, 0L))) {
-    cat('0 x 0 matrix of class "dbDenseMatrix"\n')
+    cat('0 x 0 matrix of class "dbMatrix"\n')
     return() # exit early if no info
   } else {
-    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbDenseMatrix"\n')
+    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbMatrix"\n')
   }
 
 
@@ -170,12 +170,8 @@ setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
     dplyr::filter(i %in% p_rown & j %in% p_coln) %>%
     data.table::as.data.table()
   data.table::setkeyv(preview_dt, c('i', 'j')) # enforce ordering
-  if(nrow(preview_dt) > 0) {
-    preview_dt = data.table::dcast(preview_dt, formula = i ~ j, value.var = 'x')
-    colnames(preview_dt) = NULL
-  } else {
-    print("") # TODO update this for sparse matrix
-  }
+  preview_dt = data.table::dcast(preview_dt, formula = i ~ j, value.var = 'x')
+  colnames(preview_dt) = NULL
 
   if(nrow(preview_dt < 7L)) {
     print(preview_dt, digits = 5L, row.names = 'none')
@@ -192,18 +188,6 @@ setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
 
 })
 
-### dbDenseMatrix ####
-#' @title S4 Class for dbDenseMatrix
-#'
-#' @description Representation of dense matrices using an on-disk database.
-#' Inherits from dbMatrix.
-#'
-#' @slot data A dense ijx dataframe/tibble
-#' @export
-dbDenseMatrix = setClass(
-  "dbDenseMatrix",
-  contains = "dbMatrix"
-)
 
 ### dbSparseMatrix ####
 #' @title S4 Class for dbSparseMatrix
@@ -211,13 +195,12 @@ dbDenseMatrix = setClass(
 #' @description Representation of sparse matrices using an on-disk database.
 #' Inherits from dbMatrix.
 #'
-#' @slot data A sparse ijx dataframe/tibble
+#' @slot data An ijx matrix without zeros
 #' @export
 dbSparseMatrix = setClass(
   "dbSparseMatrix",
   contains = "dbMatrix"
 )
-
 
 ### dbSemiSparseMatrix ####
 #' @title S4 Class for dbSparseMatrix
@@ -236,6 +219,18 @@ dbSemiSparseMatrix = setClass(
   )
 )
 
+### dbDenseMatrix ####
+#' @title S4 Class for dbDenseMatrix
+#'
+#' @description Representation of dense matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data An ijx matrix with zeros
+#' @export
+dbDenseMatrix = setClass(
+  "dbDenseMatrix",
+  contains = "dbMatrix"
+)
 
 ## dbDataFrame ####
 

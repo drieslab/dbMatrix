@@ -1,4 +1,0 @@
-build:
-  vignettes:
-    exclude: vignettes/benchmark-logNormalization.Rmd
-
