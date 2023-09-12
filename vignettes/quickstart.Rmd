@@ -1,24 +1,22 @@
 ---
-title: "Duckling Quickstart"
-format: html
+title: "Quickstart"
 date: "2023-09-12"
 number-sections: true
 editor: 
   markdown: 
-    wrap: 72
+    wrap: 80
 ---
 
 ## Introduction
 
-We are actively developing Duckling and invite you to submit any feedback as 
-Github issues to help us improve the package.
-
-This vignette demonstrates the different classes of Duckling and how to work 
-with them at a basic level.
+This vignette introduces the different classes of Duckling and how to work 
+with them at a basic level using generic functions. The goal of the classes
+was to emulate in-memory classes that are commonly used in the omics field
+(e.g. dgCMatrix) but rely on a database backend (i.e. DuckDB). 
 
 ## Class Structure of Duckling
 
-[![](https://mermaid.ink/img/pako:eNp1VNuO2jAU_JXIT20XKPdAHiptxbZCKlq0u63UNhVykkOwcOzUdlqyiH_vIXEgiehT7JnxnItPfCShjIB4JORU6wWjsaKJL4qds8jCPWcido4_vy2fXr7ef_l1qriAhnsQ0VJspXP0hePcRYr9AbUJKeeeE-6ooqEBVVLBJqVm14Z3VLexroJQCgGh-VgGePPWF5egUbCghpbxLimVERD3HBPwzVpK_j_3OwWJNLARNIE2xQQznsNlzLCCZiqtHFbUKHaoqmZJYafxLNOmwnDLhIHYVnWvmNmdbXD9mGq7QqMKDCV_Z5dK_q2W5kb1n_CCwAbfQ97g15LnsRRrJQ-5lVCDyQaZwXpr5wtKbFLU1xJtOCGq60ZnNWJN-fXAM14wo_zW3Xx-eFw9vDx994qadCn8nYHKbZkRzlkUVEyr5mVCYyhcW77o7OgRdl3sq21KFfqa969UqRKzWV4mudv9YPvQAmvz7As7Z1exbVoDL8fgDNqBKGFshNJwJev7SgIJa8saggWIOlcLattsjYuOl0T96m-xl-tsGRbtJR2SgEooi_AlKHrtE7MDLJl4uIxgSzNufILdRCnNjHzORUg8ozLokCzFvw_s20G8LeUa0ZSKH1ImlQi3xDuSA_GGk0mvP5zOxoOxO5gN5_NJh-TEc0e9udvvu0N3MEV8NDx1yGth0O_NR9MJEvP-YDyZueMOgYgZqVb26Tp_Tv8AkhOfRQ?type=png)](https://mermaid.live/edit#pako:eNp1VNuO2jAU_JXIT20XKPdAHiptxbZCKlq0u63UNhVykkOwcOzUdlqyiH_vIXEgiehT7JnxnItPfCShjIB4JORU6wWjsaKJL4qds8jCPWcido4_vy2fXr7ef_l1qriAhnsQ0VJspXP0hePcRYr9AbUJKeeeE-6ooqEBVVLBJqVm14Z3VLexroJQCgGh-VgGePPWF5egUbCghpbxLimVERD3HBPwzVpK_j_3OwWJNLARNIE2xQQznsNlzLCCZiqtHFbUKHaoqmZJYafxLNOmwnDLhIHYVnWvmNmdbXD9mGq7QqMKDCV_Z5dK_q2W5kb1n_CCwAbfQ97g15LnsRRrJQ-5lVCDyQaZwXpr5wtKbFLU1xJtOCGq60ZnNWJN-fXAM14wo_zW3Xx-eFw9vDx994qadCn8nYHKbZkRzlkUVEyr5mVCYyhcW77o7OgRdl3sq21KFfqa969UqRKzWV4mudv9YPvQAmvz7As7Z1exbVoDL8fgDNqBKGFshNJwJev7SgIJa8saggWIOlcLattsjYuOl0T96m-xl-tsGRbtJR2SgEooi_AlKHrtE7MDLJl4uIxgSzNufILdRCnNjHzORUg8ozLokCzFvw_s20G8LeUa0ZSKH1ImlQi3xDuSA_GGk0mvP5zOxoOxO5gN5_NJh-TEc0e9udvvu0N3MEV8NDx1yGth0O_NR9MJEvP-YDyZueMOgYgZqVb26Tp_Tv8AkhOfRQ)
+[![](https://mermaid.ink/img/pako:eNp1VF2PmzAQ_CvIT20vicgngYdKV6WVTuqpUa93Dy1VZMwGrBg7NaYNjfLfu4AJBPWeWM-OZ3fHNmfCVAwkIEzQPN9wmmiahbJeOZuCHQSXiXP-8fLw9dvz_eeflzYXUXYAGT_IvXLOoXScu1jz36B3jAoROCylmjIDuklFuyM16RBOaT7ExhqYkhKY-dAUePM2lNeicbShhjb1ri01FRAPHBOJ3VYp8Zr6nYZMGdhJmsEwxSU3gSNUwnGC21YGPTxSo_mpnZpntVyOe3luWgyXXBpI7FT3mpu0ksH4yzG3EQq1IFPinQ21-tOG5j_Tf8IDAlv8AGWd7xhP6PNWq1NZUWvSwCncBScDEmetuB_ruEmMcwQ4Fb8K0KWt3ClvlSgTJWtxW54aNCIqDHrZ661Oyd0R-T0TLn0lRPO-UMXmVUt9eiiv9288fm8rDMDeLQylvR0d2bZzgzeHV4H2GBsYvdA5dMn-uqVAxoe0G8IGZD_XK3pzKla-Ayypb_DrnKt1ZEQy0BnlMb7e2saQmBRwYBJgGMOeFsKEBL1EKi2MeiolI4HRBYxIccQXA_a9k2BPRY7okcrvSmUtCZckOJMTCaZLf-LOVuvV0pstZvP5ejUiJQlm64nvua43m3srfzH1_PllRP7WCu7En1dsz3eni-XaW4wIxNwo_Wj_N9Xn8g9yVonZ?type=png)](https://mermaid.live/edit#pako:eNp1VF2PmzAQ_CvIT20vicgngYdKV6WVTuqpUa93Dy1VZMwGrBg7NaYNjfLfu4AJBPWeWM-OZ3fHNmfCVAwkIEzQPN9wmmiahbJeOZuCHQSXiXP-8fLw9dvz_eeflzYXUXYAGT_IvXLOoXScu1jz36B3jAoROCylmjIDuklFuyM16RBOaT7ExhqYkhKY-dAUePM2lNeicbShhjb1ri01FRAPHBOJ3VYp8Zr6nYZMGdhJmsEwxSU3gSNUwnGC21YGPTxSo_mpnZpntVyOe3luWgyXXBpI7FT3mpu0ksH4yzG3EQq1IFPinQ21-tOG5j_Tf8IDAlv8AGWd7xhP6PNWq1NZUWvSwCncBScDEmetuB_ruEmMcwQ4Fb8K0KWt3ClvlSgTJWtxW54aNCIqDHrZ661Oyd0R-T0TLn0lRPO-UMXmVUt9eiiv9288fm8rDMDeLQylvR0d2bZzgzeHV4H2GBsYvdA5dMn-uqVAxoe0G8IGZD_XK3pzKla-Ayypb_DrnKt1ZEQy0BnlMb7e2saQmBRwYBJgGMOeFsKEBL1EKi2MeiolI4HRBYxIccQXA_a9k2BPRY7okcrvSmUtCZckOJMTCaZLf-LOVuvV0pstZvP5ejUiJQlm64nvua43m3srfzH1_PllRP7WCu7En1dsz3eni-XaW4wIxNwo_Wj_N9Xn8g9yVonZ)
 
 Duckling currently supports the following generic methods.
 
@@ -30,13 +28,13 @@ Duckling currently supports the following generic methods.
 | rowMeans | ✅             | ✅            | \-          |
 | colSds   | 🟧             | ✅            | \-          |
 | rowSds   | 🟧             | ✅            | \-          |
-| t        | show_fxn       | ✅            | \-          |
+| t        | 🟧             | ✅            | \-          |
 | mean     | ✅             | ✅            | \-          |
 | nrow     | ✅             | ✅            | ✅          |
 | ncol     | ✅             | ✅            | ✅          |
-| dims      | ✅             | ✅            | ✅          |
-| head     | show_fxn       | ✅            | \-          |
-| tail     | show_fxn       | ✅            | \-          |
+| dims     | ✅             | ✅            | ✅          |
+| head     | 🟧             | ✅            | \-          |
+| tail     | 🟧             | ✅            | \-          |
 | math     | 🟧             | ✅            | \-          |
 | ...      |                |               |             |
 
@@ -116,16 +114,16 @@ mean(dense)
 
 dim(dense)
 
-t(dense)
+# t(dense)
 
 # Also supports math operations
-dense + 10
-
-dense / 10 
-
-dense * 10
-
-dense - 10
+# dense + 10
+# 
+# dense / 10 
+# 
+# dense * 10
+# 
+# dense - 10
 ```
 
 ## Working with large data.frames with dbDataFrame
@@ -143,12 +141,6 @@ nrow(df)
 ncol(df)
 
 dim(df)
-```
-
-## Spatial querying
-
-```{r eval=TRUE, message=FALSE}
-
 ```
 
 ## Session Info
