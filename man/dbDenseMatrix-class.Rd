@@ -12,6 +12,6 @@ Inherits from dbMatrix.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{An ijx matrix with zeros}
+\item{\code{data}}{A dense ijx dataframe/tibble}
 }}
 

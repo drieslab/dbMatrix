@@ -28,7 +28,7 @@ Imports:
     DBI,
     dbplyr,
     digest,
-    duckdb (>= 0.8.1),
+    duckdb,
     dplyr,
     fs,
     Matrix,
@@ -45,6 +45,8 @@ Suggests:
     hdf5r,
     rstudioapi,
     testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
 Collate: 
     'classes.R'
     'Math.R'
@@ -68,3 +70,4 @@ Collate:
     'spatial_chunking.R'
     'utils.R'
     'zzz.R'
+VignetteBuilder: knitr

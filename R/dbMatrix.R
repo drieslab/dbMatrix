@@ -65,8 +65,7 @@ setMethod(
 #' If a dplyr tbl is provided as pre-made input then it is evaluated for whether
 #' it is a \code{tbl_Pool} and whether the table exists within the specified
 #' backend then directly passed downstream.
-#' @include matrix_to_dt.R
-# #' @export
+#' @export
 createDBDenseMatrix = function(matrix,
                                remote_name = 'mat_test',
                                db_path = ':temp:',
@@ -173,8 +172,7 @@ get_dense_ijx_dt <- function(x){
 #' If a dplyr tbl is provided as pre-made input then it is evaluated for whether
 #' it is a \code{tbl_Pool} and whether the table exists within the specified
 #' backend then directly passed downstream.
-#' @include matrix_to_dt.R
-# #' @export
+#' @export
 createDBSparseMatrix = function(dgc_mat,
                                 remote_name = 'mat_test',
                                 db_path = ':temp:',
@@ -190,15 +188,15 @@ createDBSparseMatrix = function(dgc_mat,
   backend_ID = calculate_backend_id(db_path)
   p = getBackendPool(backend_ID)
   if(inherits(dgc_mat, 'tbl')) assert_in_backend(x = dgc_mat, p = p)
-  
+
   data = NULL
   if(inherits(dgc_mat, 'tbl_Pool')) { # data is already in DB and tbl is provided
     data = dgc_mat
   } else { # data must be read in
-    
+
     # database input #
     overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
-    
+
     # read matrix if needed
     if(is.character(dgc_mat)) {
       streamToDB_fread(path = dgc_mat,
@@ -212,7 +210,7 @@ createDBSparseMatrix = function(dgc_mat,
                        custom_table_fields = custom_table_fields,
                        ...)
     }
-    
+
     # convert to Matrix to IJX format if needed
     if(inherits(dgc_mat, 'dgCMatrix')) {
       ijx = Matrix::summary(dgc_mat)
@@ -222,12 +220,12 @@ createDBSparseMatrix = function(dgc_mat,
                         ...)
     }
   }
-  
+
   # set dim names #
   mtx_tbl = dplyr::tbl(p, remote_name)
   r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
   c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
-  
+
   dbSparseMat = new('dbSparseMatrix',
                     data = data,
                     hash = backend_ID,
@@ -236,7 +234,7 @@ createDBSparseMatrix = function(dgc_mat,
                                      c_names),
                     dims = c(length(r_names),
                              length(c_names)))
-  
+
   return(dbSparseMat)
 }
 

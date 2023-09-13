@@ -44,3 +44,5 @@ vignettes/*.pdf
 
 # system
 .DS_Store
+/doc/
+/Meta/
