@@ -38,14 +38,14 @@ setMethod(
     return(.Object)
   })
 
-# Basic function to generate a dbMatrix object given an input to the matrix param.
+# Basic function to generate a dbDenseMatrix obj given data input
 
-#' @title Create a matrix with database backend
-#' @name createDBMatrix
+#' @title Create a dense matrix with database backend
+#' @name createDBDenseMatrix
 #' @description
-#' Create an S4 dbMatrix object that has a triplet format under the hood (ijx).
+#' Create an S4 dbMatrix object that has a dense ijx triplet vector format (ijx).
 #' The data for the matrix is either written to a specified database file or
-#' could also be read in from files on disk
+#' could also be read in from files on disk in a chunked manner.
 #' @param matrix object coercible to matrix or filepath to matrix data accessible
 #' by one of the read functions. Can also be a pre-prepared tbl_sql to compatible
 #' database table
@@ -65,77 +65,178 @@ setMethod(
 #' If a dplyr tbl is provided as pre-made input then it is evaluated for whether
 #' it is a \code{tbl_Pool} and whether the table exists within the specified
 #' backend then directly passed downstream.
-# #' @export
-# createDBMatrix = function(matrix,
-#                           remote_name = 'mat_test',
-#                           db_path = ':temp:',
-#                           overwrite = FALSE,
-#                           cores = 1L,
-#                           nlines = 10000L,
-#                           callback = callback_formatIJX(),
-#                           custom_table_fields = fields_preset$dbMatrix_ijx,
-#                           dims,
-#                           dim_names,
-#                           ...) {
-#   db_path = getDBPath(db_path)
-#   backend_ID = calculate_backend_id(db_path)
-#   p = getBackendPool(backend_ID)
-#   if(inherits(matrix, 'tbl')) assert_in_backend(x = matrix, p = p)
-#
-#   data = NULL
-#   if(inherits(matrix, 'tbl_Pool')) { # data is already in DB and tbl is provided
-#     data = matrix
-#   } else { # data must be read in
-#
-#     # database input #
-#     overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
-#
-#     # read matrix if needed
-#     if(is.character(matrix)) {
-#       streamToDB_fread(path = matrix,
-#                        backend_ID = backend_ID,
-#                        remote_name = remote_name,
-#                        # indices = c('i', 'j'),
-#                        nlines = nlines,
-#                        cores = cores,
-#                        callback = callback,
-#                        overwrite = overwrite,
-#                        custom_table_fields = custom_table_fields,
-#                        ...)
-#     }
-#
-#     # convert to Matrix to IJX format if needed
-#     if(inherits(matrix, 'Matrix')) {
-#       ijx = get_ijx_zero_dt(matrix)
-#       DBI::dbWriteTable(conn = p,
-#                         name = remote_name,
-#                         value = ijx,
-#                         ...)
-#     }
-#   }
-#
-#
-#   # set dim names #
-#   mtx_tbl = dplyr::tbl(p, remote_name)
-#   r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
-#   c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
-#
-#
-#   dbMat = new('dbDenseMatrix',
-#               data = data,
-#               hash = backend_ID,
-#               remote_name = remote_name,
-#               dim_names = list(r_names,
-#                                c_names),
-#               dims = c(length(r_names),
-#                        length(c_names)))
-#
-#   return(dbMat)
-# }
+#' @export
+createDBDenseMatrix = function(matrix,
+                               remote_name = 'mat_test',
+                               db_path = ':temp:',
+                               overwrite = FALSE,
+                               cores = 1L,
+                               nlines = 10000L,
+                               callback = callback_formatIJX(),
+                               custom_table_fields = fields_preset$dbDenseMatrix,
+                               dims,
+                               dim_names,
+                               ...) {
+  db_path = getDBPath(db_path)
+  backend_ID = calculate_backend_id(db_path)
+  p = getBackendPool(backend_ID)
+  if(inherits(matrix, 'tbl')) assert_in_backend(x = matrix, p = p)
+
+  data = NULL
+  if(inherits(matrix, 'tbl_Pool')) { # data is already in DB and tbl is provided
+    data = matrix
+  } else { # data must be read in
+
+    # database input #
+    overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
+
+    # read matrix if needed
+    if(is.character(matrix)) {
+      streamToDB_fread(path = matrix,
+                       backend_ID = backend_ID,
+                       remote_name = remote_name,
+                       # indices = c('i', 'j'),
+                       nlines = nlines,
+                       cores = cores,
+                       callback = callback,
+                       overwrite = overwrite,
+                       custom_table_fields = custom_table_fields,
+                       ...)
+    }
+
+    # convert to Matrix to IJX format if needed
+    if(inherits(matrix, 'Matrix')) {
+      ijx = get_dense_ijx_dt(matrix)
+      DBI::dbWriteTable(conn = p,
+                        name = remote_name,
+                        value = ijx,
+                        ...)
+    }
+  }
 
 
+  # set dim names #
+  mtx_tbl = dplyr::tbl(p, remote_name)
+  r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
+  c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
 
 
+  dbMat = new('dbDenseMatrix',
+              data = data,
+              hash = backend_ID,
+              remote_name = remote_name,
+              dim_names = list(r_names,
+                               c_names),
+              dims = c(length(r_names),
+                       length(c_names)))
+
+  return(dbMat)
+}
+
+# create ijx vector representation of sparse matrix, keeping zeros
+# Updates dgcmatrix by reference
+# Copied from below:
+# https://stackoverflow.com/questions/64473488/melting-a-sparse-matrix-dgcmatrix-and-keeping-its-zeros
+#' @noRd
+get_dense_ijx_dt <- function(x){
+  dplyr::tibble(
+    i=rownames(x)[row(x)],
+    j=colnames(x)[col(x)],
+    x=as.numeric(x)
+  )
+}
+
+
+#' @title Create a matrix with database backend
+#' @name createDBSparseMatrix
+#' @description
+#' Create an S4 dbMatrix object that has a triplet format under the hood (ijx).
+#' The data for the matrix is either written to a specified database file or
+#' could also be read in from files on disk
+#' @param dgc_mat object coercible to dgCMatrix or filepath to matrix data accessible
+#' by one of the read functions. Can also be a pre-prepared tbl_sql to compatible
+#' database table
+#' @param remote_name name to assign within database
+#' @param db_path path to database on disk
+#' @param dim_names list of rownames and colnames of the matrix (optional)
+#' @param dims dimensions of the matrix (optional)
+#' @param overwrite whether to overwrite if table already exists in database
+#' @param cores number of cores to use if reading into database
+#' @param nlines number of lines to read per chunk if reading into database
+#' @param callback callback functions to apply to each data chunk before it is
+#' sent to the database backend
+#' @param ... additional params to pass
+#' @details Information is only read into the database during this process. Based
+#' on the \code{remote_name} and \code{db_path} a lazy connection is then made
+#' downstream during \code{dbData} initialization and appended to the object.
+#' If a dplyr tbl is provided as pre-made input then it is evaluated for whether
+#' it is a \code{tbl_Pool} and whether the table exists within the specified
+#' backend then directly passed downstream.
+#' @export
+createDBSparseMatrix = function(dgc_mat,
+                                remote_name = 'mat_test',
+                                db_path = ':temp:',
+                                overwrite = FALSE,
+                                cores = 1L,
+                                nlines = 10000L,
+                                callback = callback_formatIJX(),
+                                custom_table_fields = fields_preset$dbSparseMatrix,
+                                dims,
+                                dim_names,
+                                ...) {
+  db_path = getDBPath(db_path)
+  backend_ID = calculate_backend_id(db_path)
+  p = getBackendPool(backend_ID)
+  if(inherits(dgc_mat, 'tbl')) assert_in_backend(x = dgc_mat, p = p)
+
+  data = NULL
+  if(inherits(dgc_mat, 'tbl_Pool')) { # data is already in DB and tbl is provided
+    data = dgc_mat
+  } else { # data must be read in
+
+    # database input #
+    overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
+
+    # read matrix if needed
+    if(is.character(dgc_mat)) {
+      streamToDB_fread(path = dgc_mat,
+                       backend_ID = backend_ID,
+                       remote_name = remote_name,
+                       # indices = c('i', 'j'),
+                       nlines = nlines,
+                       cores = cores,
+                       callback = callback,
+                       overwrite = overwrite,
+                       custom_table_fields = custom_table_fields,
+                       ...)
+    }
+
+    # convert to Matrix to IJX format if needed
+    if(inherits(dgc_mat, 'dgCMatrix')) {
+      ijx = Matrix::summary(dgc_mat)
+      DBI::dbWriteTable(conn = p,
+                        name = remote_name,
+                        value = as.data.frame(ijx), # cannot write sparseSummary to db
+                        ...)
+    }
+  }
+
+  # set dim names #
+  mtx_tbl = dplyr::tbl(p, remote_name)
+  r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
+  c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
+
+  dbSparseMat = new('dbSparseMatrix',
+                    data = data,
+                    hash = backend_ID,
+                    remote_name = remote_name,
+                    dim_names = list(r_names,
+                                     c_names),
+                    dims = c(length(r_names),
+                             length(c_names)))
+
+  return(dbSparseMat)
+}
 
 
 # compute / DB table creation from lazy dplyr query results
