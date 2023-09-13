@@ -386,8 +386,6 @@ callback_formatIJX = function(x, group_by = 1) {
   return(x)
 }
 
-
-
 #' @name callback_swapCols
 #' @title Swap values in two columns
 #' @param x data.table
