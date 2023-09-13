@@ -113,6 +113,18 @@ dbMatrix = setClass(
   )
 )
 
+### dbDenseMatrix ####
+#' @title S4 Class for dbDenseMatrix
+#'
+#' @description Representation of dense matrices using an on-disk database.
+#' Inherits from dbMatrix.
+#'
+#' @slot data A dense ijx dataframe/tibble
+#' @export
+dbDenseMatrix = setClass(
+  "dbDenseMatrix",
+  contains = "dbMatrix"
+)
 
 setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
   object = reconnect(object)
@@ -192,18 +204,7 @@ setMethod('show', signature(object = 'dbDenseMatrix'), function(object) {
 
 })
 
-### dbDenseMatrix ####
-#' @title S4 Class for dbDenseMatrix
-#'
-#' @description Representation of dense matrices using an on-disk database.
-#' Inherits from dbMatrix.
-#'
-#' @slot data A dense ijx dataframe/tibble
-#' @export
-dbDenseMatrix = setClass(
-  "dbDenseMatrix",
-  contains = "dbMatrix"
-)
+
 
 ### dbSparseMatrix ####
 #' @title S4 Class for dbSparseMatrix
@@ -217,6 +218,115 @@ dbSparseMatrix = setClass(
   "dbSparseMatrix",
   contains = "dbMatrix"
 )
+
+
+setMethod('show', signature('dbSparseMatrix'), function(object) {
+  object = reconnect(object)
+
+  cat('backend_ID : ', object@hash, '\n')
+  cat('name       : \'', object@remote_name, '\'\n', sep = '')
+
+  dimn = slot(object, 'dim_names')
+  rown = dimn[[1L]]
+  coln = dimn[[2L]]
+
+  # print class and dims #
+  # -------------------- #
+
+  if(identical(object@dims,  c(0L, 0L))) {
+    cat('0 x 0 matrix of class "dbSparseMatrix"\n')
+    return() # exit early if no info
+  } else {
+    cat(object@dims[[1]], 'x', object@dims[[2]], ' matrix of class "dbSparseMatrix"\n')
+  }
+
+
+  # preview print #
+  # ------------- #
+
+  # print colnames
+  colname_show_n = object@dims[[2]] - 6L
+  if(colname_show_n < 0L) {
+    message('Colnames: ', vector_to_string(coln))
+  } else if(colname_show_n >= 1L) {
+    message(
+      '[[ Colnames ',
+      vector_to_string(head(coln, 3L)),
+      ' ... suppressing ', colname_show_n, ' ...',
+      vector_to_string(tail(coln, 3L)),
+      ' ]]'
+    )
+  }
+
+  # get matrix i and j to print
+  suppress_rows = FALSE # flag for whether rows are being suppressed
+  if(object@dims[[2L]] - 10L > 0L) {
+    p_coln = c(head(coln, 10L))
+  } else {
+    p_coln = coln
+  }
+  p_coln = head(coln, 10L)
+  if(object@dims[[1L]] - 6L > 0L) {
+    p_rown = c(head(rown, 3L), tail(rown, 3L))
+    suppress_rows = TRUE
+  } else {
+    p_rown = rown
+  }
+
+  filter_i = sapply(p_rown, function(f_i) which(f_i == rown))
+  filter_j = sapply(p_coln, function(f_j) which(f_j == coln))
+
+  # prepare subset to print
+  conn = pool::poolCheckout(cPool(object)) # conn needed for compute()
+  on.exit(pool::poolReturn(conn))
+
+  preview = object
+  cPool(preview) = conn # set conn as src
+  preview_tbl = preview@data %>%
+    dplyr::filter(i %in% filter_i & j %in% filter_j) %>%
+    dplyr::collect()
+
+  # ij indices for printing
+  a_i = sapply(preview_tbl$i, function(i_idx) which(rown[i_idx] == p_rown))
+  a_j = sapply(preview_tbl$j, function(j_idx) which(coln[j_idx] == p_coln))
+
+  if (length(a_i) == 0L) a_i = NULL
+  if (length(a_j) == 0L) a_j = NULL
+  a_x = ifelse(length(preview_tbl$x) == 0L, NULL, preview_tbl$x)
+
+  # print matrix values
+  if(suppress_rows) {
+    # suppressed lines: capture, split, then print individually
+    # when suppressed, currently hardcoded to show 3 from head and 3 from tail
+    a_out = capture.output(print_array(i = a_i, j = a_j, x = a_x, dims = c(length(p_rown), length(p_coln)), rownames = p_rown))
+    writeLines(a_out[1:4])
+
+    sprintf('\n......suppressing %d columns and %d rows\n\n',
+            object@dims[[2L]] - 10L, object@dims[[1L]] - 6L) %>%
+      cat()
+
+    writeLines(a_out[5:7])
+  } else {
+    # no suppressed lines: Directly print
+    print_array(i = a_i, j = a_j, x = a_x, dims = c(length(p_rown), length(p_coln)), rownames = p_rown)
+  }
+
+
+  # if(nrow(preview_dt < 7L)) {
+  #   print(preview_dt, digits = 5L, row.names = 'none')
+  # } else {
+  #   print(preview_dt[1L:3L,], digits = 5L, row.names = 'none')
+  #
+  #   sprintf(' ........suppressing %d columns and %d rows\n',
+  #           object@dims[[2L]] - 10L, object@dims[[1L]] - 6L)
+  #
+  #   print(preview_dt[4L:6L,], digits = 5L, row.names = 'none')
+  # }
+  #
+  # cat('\n')
+
+})
+
 
 
 ### dbSemiSparseMatrix ####

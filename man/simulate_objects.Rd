@@ -2,37 +2,72 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_objects}
 \alias{simulate_objects}
-\alias{simulate_duckdb}
-\alias{simulate_dbDataFrame}
-\alias{simulate_dbPointsProxy}
-\alias{simulate_dbPolygonProxy}
+\alias{sim_duckdb}
+\alias{sim_dgc}
+\alias{sim_dbDataFrame}
+\alias{sim_dbSparseMatrix}
+\alias{sim_dbDenseMatrix}
+\alias{sim_dbPointsProxy}
+\alias{sim_dbPolygonProxy}
 \title{Simulate Duckling objects}
 \usage{
-simulate_duckdb(data = datasets::iris, name = "test", p = NULL)
+sim_duckdb(data = datasets::iris, name = "test", p = NULL)
 
-simulate_dbDataFrame(data = NULL, name = "df_test", key = NA_character_)
+sim_dgc(num_rows = 50, num_cols = 50, seed_num = 42)
 
-simulate_dbPointsProxy(data = NULL)
+sim_dbDataFrame(data = NULL, name = "df_test", key = NA_character_)
 
-simulate_dbPolygonProxy(data = NULL)
+sim_dbSparseMatrix(dgc = NULL, name = "sparse_test")
+
+sim_dbDenseMatrix(dgc = NULL, name = "dense_test")
+
+sim_dbPointsProxy(data = NULL)
+
+sim_dbPolygonProxy(data = NULL)
 }
 \arguments{
 \item{data}{data to use}
 
 \item{name}{remote name of table on database to set}
+
+\item{num_rows}{The number of rows in the matrix (default: 50)}
+
+\item{num_cols}{The number of columns in the matrix (default: 50)}
+
+\item{seed_num}{The seed number for reproducibility (default: 42)}
+}
+\value{
+A dgCMatrix object
 }
 \description{
 Create simulated Duckling objects in memory from pre-prepared data. Useful
 for testing purposes and examples.
+
+Simulate a dgCMatrix object
+}
+\details{
+This function generates a dgCMatrix object with a specified number of rows and columns,
+and sets 50 random values to non-zero.
 }
 \section{Functions}{
 \itemize{
-\item \code{simulate_duckdb()}: Simulate a duckdb connection dplyr tbl_Pool in memory
+\item \code{sim_duckdb()}: Simulate a duckdb connection dplyr tbl_Pool in memory
 
-\item \code{simulate_dbDataFrame()}: Simulate a dbDataFrame in memory
+\item \code{sim_dgc()}: Simulate a duckdb connection dplyr tbl_Pool in memory
 
-\item \code{simulate_dbPointsProxy()}: Simulate a dbPointsProxy in memory
+\item \code{sim_dbDataFrame()}: Simulate a dbDataFrame in memory
 
-\item \code{simulate_dbPolygonProxy()}: Simulate a dbPolygonProxy in memory
+\item \code{sim_dbSparseMatrix()}: Simulate a dbSparseMatrix in memory
+
+\item \code{sim_dbDenseMatrix()}: Simulate a dbSparseMatrix in memory
+
+\item \code{sim_dbPointsProxy()}: Simulate a dbPointsProxy in memory
+
+\item \code{sim_dbPolygonProxy()}: Simulate a dbPolygonProxy in memory
 
 }}
+\examples{
+sim_dgc()
+
+}
+\keyword{internal}

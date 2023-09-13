@@ -4,7 +4,7 @@
 \alias{render_image}
 \title{internal function for rasterized rendering from matrix data}
 \usage{
-render_image(mat, cols = c("#002222", "white", "#800020"), axes = FALSE)
+render_image(mat, cols = c("#002222", "white", "#800020"), axes = FALSE, ...)
 }
 \description{
 internal function for rasterized rendering from matrix data

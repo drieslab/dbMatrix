@@ -24,7 +24,7 @@ create_dense_ijx_dt <- function(dgc){
 
 
 #' @describeIn simulate_objects Simulate a duckdb connection dplyr tbl_Pool in memory
-#' @internal
+#' @keywords internal
 sim_duckdb = function(data = datasets::iris, name = 'test', p = NULL) {
   if(is.null(p)) {
     drv = duckdb::duckdb(dbdir = ':memory:')
@@ -53,7 +53,7 @@ sim_duckdb = function(data = datasets::iris, name = 'test', p = NULL) {
 #' @examples
 #' sim_dgc()
 #'
-#' @internal
+#' @keywords internal
 sim_dgc = function(num_rows = 50, num_cols = 50, seed_num = 42){
     # check if num_rows and num_cols are both greater than or equal to 10
   if (num_rows < 10 | num_cols < 10) {
@@ -96,7 +96,7 @@ sim_dbDataFrame = function(data = NULL, name = 'df_test', key = NA_character_) {
               init = TRUE, key = key)
 }
 
-#' @setup_dbSparseMatrix Simulate a duckdb table
+#' @name setup_dbSparseMatrix Simulate a duckdb table
 #'
 #'
 #' @param name The name of the table (default: 'test')
@@ -113,18 +113,18 @@ setup_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test', p = NULL,
     drv = duckdb::duckdb(dbdir = ':memory:')
     p = pool::dbPool(drv)
   }
-  
+
   if(is.null(dgc)){
     # create simulated dgc matrix
     dgc = Duckling:::sim_dgc(num_rows = 50, num_cols = 50,
                              seed_num = seed_num)
-    
+
     # Create triplicate vector representation of simulated dgc matrix
     ijx = Matrix::summary(dgc)
   } else{
     ijx = Matrix::summary(dgc)
   }
-  
+
   conn = pool::poolCheckout(p)
   duckdb::duckdb_register(conn, df = ijx, name = name)
   pool::poolReturn(conn)
@@ -142,21 +142,21 @@ sim_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test') {
     checkmate::assert_class(dgc, 'dbSparseMatrix')
     data = Duckling:::setup_dbSparseMatrix(data = dgc, name = name)
   }
-  
+
   # pull in dimnames
   row_names = as.factor(rownames(dgc))
   col_names = as.factor(colnames(dgc))
-  
+
   # create obj
   # dbSparseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
   #                dims = c(50L,50L), init = TRUE)
-  
+
   dbSparseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
                  dims = c(50L,50L), dim_names = list(row_names, col_names),
                  init = TRUE)
 }
 
-#' @setup_dbDMatrix Simulate a duckdb table
+#' @name setup_dbDMatrix Simulate a duckdb table
 #'
 #'
 #' @param name The name of the table (default: 'test')
@@ -172,16 +172,16 @@ setup_dbDMatrix = function(mat = NULL, name = 'dense_test', p = NULL) {
     drv = duckdb::duckdb(dbdir = ':memory:')
     p = pool::dbPool(drv)
   }
-  
+
   if(is.null(mat)){
     # dgc = Duckling:::sim_dgc(num_rows = 50, num_cols = 50, seed_num = 42)
     mat = as.matrix(MASS::Animals)
-    
+
     dense_mat = Duckling:::create_dense_ijx_dt(mat)
   } else{
     dense_mat = Duckling:::create_dense_ijx_dt(mat)
   }
-  
+
   conn = pool::poolCheckout(p)
   duckdb::duckdb_register(conn, df = dense_mat, name = name)
   pool::poolReturn(conn)
@@ -199,11 +199,11 @@ sim_dbDenseMatrix = function(dgc = NULL, name = 'dense_test') {
     checkmate::assert_class(data, 'dbDenseMatrix')
     data = Duckling:::setup_dbDMatrix(data = dgc, name = name)
   }
-  
+
   # pull in dimnames
   row_names = as.factor(rownames(mat))
   col_names = as.factor(colnames(mat))
-  
+
   # create obj
   dbDenseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
                 dims = c(50L,50L), dim_names = list(row_names, col_names),

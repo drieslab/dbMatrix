@@ -165,7 +165,7 @@ setMethod('rowSums', signature(x = 'dbDenseMatrix'),
             x = castNumeric(x)
 
             val_names = rownames(x)
-            
+
             # calculate rowSums
             vals = x[] %>%
               dplyr::group_by(i) %>%
@@ -173,10 +173,10 @@ setMethod('rowSums', signature(x = 'dbDenseMatrix'),
               dplyr::arrange(i) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-            
+
             # set dimname
             names(vals) = val_names
-            
+
             # show
             vals
           })
@@ -186,16 +186,17 @@ setMethod('rowSums', signature(x = 'dbSparseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-            
+
             # get non-zero column idx (factors) and convert to integers
-            row_indices = sparse[] %>% 
-              dplyr::pull(i) %>% 
-              unique() %>% 
+            row_indices = sparse[] %>%
+              dplyr::arrange(i) %>%
+              dplyr::pull(i) %>%
+              unique() %>%
               as.integer()
-            
+
             # get non-zero column names by column idx
             val_names = factor(rownames(x)[row_indices])
-            
+
             # calculate rowSums
             vals = x[] %>%
               dplyr::group_by(i) %>%
@@ -203,10 +204,10 @@ setMethod('rowSums', signature(x = 'dbSparseMatrix'),
               dplyr::arrange(i) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-            
+
             # set dimnames
             names(vals) = val_names
-            
+
             # show
             vals
           })
@@ -222,7 +223,7 @@ setMethod('colSums', signature(x = 'dbDenseMatrix'),
             x = castNumeric(x)
 
             val_names = colnames(x)
-            
+
             # calculate colSums
             vals = x[] %>%
               dplyr::group_by(j) %>%
@@ -230,10 +231,10 @@ setMethod('colSums', signature(x = 'dbDenseMatrix'),
               dplyr::arrange(j) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-            
+
             # set dimnames
             names(vals) = val_names
-            
+
             # show
             vals
           })
@@ -245,16 +246,17 @@ setMethod('colSums', signature(x = 'dbSparseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-            
+
             # get non-zero column idx (factors) and convert to integers
             col_indices = sparse[] %>%
-              pull(j) %>%
+              dplyr::arrange(j) %>%
+              dplyr::pull(j) %>%
               unique() %>%
               as.integer()
-            
+
             # get non-zero column names by column idx
             val_names = factor(colnames(x)[col_indices])
-            
+
             # calculate colSums
             vals = x[] %>%
               dplyr::group_by(j) %>%
@@ -262,10 +264,10 @@ setMethod('colSums', signature(x = 'dbSparseMatrix'),
               dplyr::arrange(j) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-            
+
             # set dimnames
             names(vals) = val_names
-            
+
             # show
             vals
           })
@@ -282,7 +284,7 @@ setMethod('rowMeans', signature(x = 'dbDenseMatrix'),
             x = castNumeric(x)
 
             val_names = rownames(x)
-            
+
             # calculate rowMeans
             vals = x[] %>%
               dplyr::group_by(i) %>%
@@ -290,10 +292,10 @@ setMethod('rowMeans', signature(x = 'dbDenseMatrix'),
               dplyr::arrange(i) %>%
               dplyr::collapse() %>%
               dplyr::pull(mean_x)
-            
+
             # set dimnames
             names(vals) = val_names
-            
+
             # show
             vals
           })
@@ -308,22 +310,23 @@ setMethod('rowMeans', signature(x = 'dbSparseMatrix'),
 
             # get non-zero column idx (factors) and convert to integers
             row_indices = sparse[] %>%
+              dplyr::arrange(i) %>%
               dplyr::pull(i) %>%
               unique() %>%
               as.integer() %>%
               sort()
-            
+
             # get non-zero column names by column idx
             val_names = factor(rownames(x)[row_indices])
-            
+
             # calculate
             row_sums = Duckling::rowSums(x)
             n_rows <- dim(x)[1]
             vals = row_sums / n_rows
-            
+
             # set dimnames
             names(vals) = val_names
-            
+
             # show
             vals
           })
@@ -359,28 +362,29 @@ setMethod('colMeans', signature(x = 'dbSparseMatrix'),
             if (!inherits(x, 'dbSparseMatrix')) {
               stop('x must be of class dbSparseMatrix')
             }
-            
+
             x = reconnect(x)
             x = castNumeric(x)
-            
+
             # get non-zero column idx (factors) and convert to integers
             col_indices = sparse[] %>%
+              dplyr::arrange(j) %>%
               dplyr::pull(j) %>%
               unique() %>%
               as.integer() %>%
               sort()
-            
+
             # get non-zero column names by column idx
             val_names = factor(colnames(x)[col_indices])
-            
+
             # calculate
             col_sums = Duckling::colSums(x)
             n_cols <- dim(x)[2]
             vals = col_sums / n_cols
-            
+
             # set dimnames
             names(vals) = val_names
-            
+
             # show
             vals
 
@@ -419,15 +423,15 @@ setMethod('colSds', signature(x = 'dbSparseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-            
+
             stop("to be implemented")
-            
+
             # val_names = colnames(x)
             # vals <- x[] %>%
             #   group_by(j) %>%
             #   summarise(sd_x = sqrt(mean((x - col_means[j])^2, na.rm = TRUE))) %>%
             #   pull(sd_x)
-            # 
+            #
             # vals = x[] %>%
             #   dplyr::group_by(j) %>%
             #   dplyr::summarise(sd_x = sd(x, na.rm = TRUE)) %>%
@@ -466,9 +470,9 @@ setMethod('rowSds', signature(x = 'dbSparseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-            
+
             stop("to be implemented")
-            
+
             # val_names = rownames(x)
             # vals = x[] %>%
             #   dplyr::group_by(i) %>%
@@ -487,7 +491,7 @@ setMethod('rowSds', signature(x = 'dbSparseMatrix'),
 setMethod('mean', signature(x = 'dbMatrix'), function(x, ...) {
   x = reconnect(x)
   x = castNumeric(x)
-  
+
   x[] %>%
     dplyr::summarise(mean_x = mean(x, na.rm = TRUE)) %>%
     dplyr::pull(mean_x)
@@ -527,7 +531,7 @@ setMethod('t', signature(x = 'dbPolygonProxy'), function(x) {
 #' @export
 setMethod('t', signature(x = 'dbMatrix'), function(x) {
   x = reconnect(x)
-  
+
   x[] = x[] %>% dplyr::select(i = j, j = i, x)
   x@dims = c(x@dims[[2L]], x@dims[[1L]])
   x@dim_names = list(x@dim_names[[2L]], x@dim_names[[1L]])
@@ -676,7 +680,7 @@ setMethod('length', signature('dbSpatProxyData'), function(x) {
 #' @export
 setMethod('head', signature(x = 'dbMatrix'), function(x, n = 6L, ...) {
   x = reconnect(x)
-  
+
   n_subset = x@dim_names[[1L]] = head(x@dim_names[[1L]], n = n)
   x[] = x[] %>% dplyr::filter(i %in% n_subset)
   x@dims[1L] = min(x@dims[1L], as.integer(n))
@@ -686,7 +690,7 @@ setMethod('head', signature(x = 'dbMatrix'), function(x, n = 6L, ...) {
 #' @export
 setMethod('head', signature(x = 'dbDataFrame'), function(x, n = 6L, ...) {
   x = reconnect(x)
-  
+
   x[] = x[] %in% head(x, n = n)
   x
 })
@@ -696,7 +700,7 @@ setMethod('head', signature(x = 'dbDataFrame'), function(x, n = 6L, ...) {
 #' @export
 setMethod('tail', signature(x = 'dbMatrix'), function(x, n = 6L, ...) {
   x = reconnect(x)
-  
+
   n_subset = x@dim_names[[1L]] = tail(x@dim_names[[1L]], n = n)
   x[] = x[] %>% dplyr::filter(i %in% n_subset)
   x@dims[1L] = min(x@dims[1L], as.integer(n))
@@ -706,7 +710,7 @@ setMethod('tail', signature(x = 'dbMatrix'), function(x, n = 6L, ...) {
 #' @export
 setMethod('tail', signature(x = 'dbDataFrame'), function(x, n = 6L, ...) {
   x = reconnect(x)
-  
+
   x[] = x[] %in% tail(x, n = n)
   x
 })

@@ -65,7 +65,6 @@ setMethod(
 #' If a dplyr tbl is provided as pre-made input then it is evaluated for whether
 #' it is a \code{tbl_Pool} and whether the table exists within the specified
 #' backend then directly passed downstream.
-#' @include matrix_to_dt.R
 # #' @export
 # createDBMatrix = function(matrix,
 #                           remote_name = 'mat_test',
@@ -82,15 +81,15 @@ setMethod(
 #   backend_ID = calculate_backend_id(db_path)
 #   p = getBackendPool(backend_ID)
 #   if(inherits(matrix, 'tbl')) assert_in_backend(x = matrix, p = p)
-# 
+#
 #   data = NULL
 #   if(inherits(matrix, 'tbl_Pool')) { # data is already in DB and tbl is provided
 #     data = matrix
 #   } else { # data must be read in
-# 
+#
 #     # database input #
 #     overwrite_handler(p = p, remote_name = remote_name, overwrite = overwrite)
-# 
+#
 #     # read matrix if needed
 #     if(is.character(matrix)) {
 #       streamToDB_fread(path = matrix,
@@ -104,7 +103,7 @@ setMethod(
 #                        custom_table_fields = custom_table_fields,
 #                        ...)
 #     }
-# 
+#
 #     # convert to Matrix to IJX format if needed
 #     if(inherits(matrix, 'Matrix')) {
 #       ijx = get_ijx_zero_dt(matrix)
@@ -114,14 +113,14 @@ setMethod(
 #                         ...)
 #     }
 #   }
-# 
-# 
+#
+#
 #   # set dim names #
 #   mtx_tbl = dplyr::tbl(p, remote_name)
 #   r_names = mtx_tbl %>% dplyr::distinct(i) %>% dplyr::arrange(i) %>% dplyr::pull()
 #   c_names = mtx_tbl %>% dplyr::distinct(j) %>% dplyr::arrange(j) %>% dplyr::pull()
-# 
-# 
+#
+#
 #   dbMat = new('dbDenseMatrix',
 #               data = data,
 #               hash = backend_ID,
@@ -130,7 +129,7 @@ setMethod(
 #                                c_names),
 #               dims = c(length(r_names),
 #                        length(c_names)))
-# 
+#
 #   return(dbMat)
 # }
 

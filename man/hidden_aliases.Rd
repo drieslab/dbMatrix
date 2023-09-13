@@ -52,16 +52,21 @@
 \alias{Ops,ANY,dbMatrix-method}
 \alias{Arith,dbMatrix,dbMatrix-method}
 \alias{Ops,dbMatrix,dbMatrix-method}
-\alias{rowSums,dbMatrix-method}
-\alias{colSums,dbMatrix-method}
-\alias{rowMeans,dbMatrix-method}
-\alias{colMeans,dbMatrix-method}
-\alias{colSds,dbMatrix-method}
-\alias{rowSds,dbMatrix-method}
-\alias{t,dbMatrix-method}
+\alias{rowSums,dbDenseMatrix-method}
+\alias{colSums,dbDenseMatrix-method}
+\alias{colSums,dbSparseMatrix-method}
+\alias{rowMeans,dbDenseMatrix-method}
+\alias{rowMeans,dbSparseMatrix-method}
+\alias{colMeans,dbDenseMatrix-method}
+\alias{colMeans,dbSparseMatrix-method}
+\alias{colSds,dbDenseMatrix-method}
+\alias{colSds,dbSparseMatrix-method}
+\alias{rowSds,dbDenseMatrix-method}
+\alias{rowSds,dbSparseMatrix-method}
+\alias{mean,dbMatrix-method}
 \alias{t,dbPointsProxy-method}
 \alias{t,dbPolygonProxy-method}
-\alias{mean,dbMatrix-method}
+\alias{t,dbMatrix-method}
 \alias{nrow,dbDataFrame-method}
 \alias{nrow,dbPointsProxy-method}
 \alias{nrow,dbPolygonProxy-method}
@@ -176,25 +181,35 @@
 
 \S4method{Ops}{dbMatrix,dbMatrix}(e1, e2)
 
-\S4method{rowSums}{dbMatrix}(x, na.rm = FALSE, dims = 1, ...)
+\S4method{rowSums}{dbDenseMatrix}(x, na.rm = FALSE, dims = 1, ...)
 
-\S4method{colSums}{dbMatrix}(x, na.rm = FALSE, dims = 1, ...)
+\S4method{colSums}{dbDenseMatrix}(x, na.rm = FALSE, dims = 1, ...)
 
-\S4method{rowMeans}{dbMatrix}(x, na.rm = FALSE, dims = 1, ...)
+\S4method{colSums}{dbSparseMatrix}(x, na.rm = FALSE, dims = 1, ...)
 
-\S4method{colMeans}{dbMatrix}(x, na.rm = FALSE, dims = 1, ...)
+\S4method{rowMeans}{dbDenseMatrix}(x, na.rm = FALSE, dims = 1, ...)
 
-\S4method{colSds}{dbMatrix}(x, ...)
+\S4method{rowMeans}{dbSparseMatrix}(x, na.rm = FALSE, dims = 1, ...)
 
-\S4method{rowSds}{dbMatrix}(x, ...)
+\S4method{colMeans}{dbDenseMatrix}(x, na.rm = FALSE, dims = 1, ...)
 
-\S4method{t}{dbMatrix}(x)
+\S4method{colMeans}{dbSparseMatrix}(x, na.rm = FALSE, dims = 1, ...)
+
+\S4method{colSds}{dbDenseMatrix}(x, ...)
+
+\S4method{colSds}{dbSparseMatrix}(x, ...)
+
+\S4method{rowSds}{dbDenseMatrix}(x, ...)
+
+\S4method{rowSds}{dbSparseMatrix}(x, ...)
+
+\S4method{mean}{dbMatrix}(x, ...)
 
 \S4method{t}{dbPointsProxy}(x)
 
 \S4method{t}{dbPolygonProxy}(x)
 
-\S4method{mean}{dbMatrix}(x, ...)
+\S4method{t}{dbMatrix}(x)
 
 \S4method{nrow}{dbDataFrame}(x)
 
