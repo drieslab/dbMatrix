@@ -1,25 +1,4 @@
----
-title: "Benchmarking DuckDB and Sparse Matrix Operation"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-number-sections: true
-vignette: >
-  %\VignetteIndexEntry{benchmarks}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-## Description
-This vignette illustrates the performance of a common matrix operation
-(log normalization) on a sparse gene expression matrix with different
-methods designed to handle larger single cell datasets.
-
-Three different number of cells (1M, 10M, and 100M) are tested. The data was
-generated from binned data of a mouse embryo at embryonic day 16.5 
-(Stereo-seq data).
-
-## Load deps
-```{r, message=F, error=F}
+## ---- message=F, error=F------------------------------------------------------
 library(duckdb) # version 0.8.1.1
 library(dbplyr)
 library(dplyr)
@@ -32,10 +11,9 @@ reloadGiotto() #library(Giotto)
 library(Seurat) # remotes::install_github("satijalab/seurat", "seurat5", quiet = TRUE)
 library(SeuratObject) # remotes::install_github("mojaveazure/seurat-object", "seurat5", quiet = TRUE)
 options(Seurat.object.assay.version = "v5")
-```
 
-## Setup data
-```{r}
+
+## -----------------------------------------------------------------------------
 setwd('~/Downloads/duckdb-benchmarking/')
 
 # Load saved database 
@@ -47,10 +25,9 @@ db_filename_100M = "e16_e2s6-100M-sparseijx-duckdbv8-1-1.db"
 con_1M = dbConnect(duckdb(), dbdir = db_filename_1M)
 con_10M = dbConnect(duckdb(), dbdir = db_filename_10M)
 con_100M = dbConnect(duckdb(), dbdir = db_filename_100M)
-```
 
-## Load prepared data
-```{r}
+
+## -----------------------------------------------------------------------------
 # Load saved dgc data
 # See sample processing file for preprocessing steps
 file_name_1M = "~/Downloads/duckdb-benchmarking/E16.5_E2S6_1M.RDS"
@@ -81,11 +58,9 @@ delayed_matrix_100M <- DelayedArray(gxp_100M)
 # seurat_1M = CreateSeuratObject(counts = bpcells_1M)
 # seurat_10M = CreateSeuratObject(counts = bpcells_10M)
 # seurat_100M = CreateSeuratObject(counts = bpcells_100M)
-```
 
 
-## Benchmark functions
-```{r}
+## -----------------------------------------------------------------------------
 scalefactor=1001
 
 runLibraryNormTestDT <- function(ijx){
@@ -104,10 +79,9 @@ runLibraryNormTestDB <- function(con){
 
     return(res)
 }
-```
 
-## Run benchmark #
-```{r}
+
+## -----------------------------------------------------------------------------
 res = microbenchmark::microbenchmark(
     duckling_1M = runLibraryNormTestDB(con_1M),
     duckling_10M = runLibraryNormTestDB(con_10M),
@@ -134,4 +108,4 @@ ggplot2::autoplot(res)
 dbDisconnect(con_1M)
 dbDisconnect(con_10M)
 dbDisconnect(con_100M)
-```
+

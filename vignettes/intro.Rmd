@@ -1,11 +1,12 @@
 ---
-title: "Intro"
-format: html
-date: "2023-09-12"
+title: "Duckling Backend for Database Backed Structures"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
 number-sections: true
-editor: 
-  markdown: 
-    wrap: 80
+vignette: >
+  %\VignetteIndexEntry{backend}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ### Backend Framework

@@ -1,10 +1,12 @@
 ---
 title: "Quickstart"
-date: "2023-09-12"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
 number-sections: true
-editor: 
-  markdown: 
-    wrap: 80
+vignette: >
+  %\VignetteIndexEntry{quickstart}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## Introduction
@@ -42,7 +44,7 @@ Duckling currently supports the following generic methods.
 
 ```{r, message=F}
 # git clone repo
-devtools::load_all('/Users/user/Documents/dries/Giotto/duckling/')
+devtools::load_all('../')
 library(dplyr)
 library(duckdb)
 ```
