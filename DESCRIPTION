@@ -1,6 +1,6 @@
 Package: Duckling
 Title: DuckDB Library for Integrative Genomics
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: c(
   person("Edward", "Ruiz", email = "ecr7407@gmail.com",
 		 role = c("aut")),
@@ -14,8 +14,8 @@ Description: Quack
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-URL: https://Ed2uiz.github.io/duckling/, https://github.com/Ed2uiz/duckling
-BugReports: https://github.com/Ed2uiz/duckling/issues
+URL: https://drieslab.github.io/duckling/, https://github.com/drieslab/duckling
+BugReports: https://github.com/drieslab/duckling/issues
 RoxygenNote: 7.2.3
 Depends:
     base (>= 3.5.0),

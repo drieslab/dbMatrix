@@ -20,7 +20,6 @@ NULL
 setClass('Duckling', contains = 'VIRTUAL')
 
 
-
 ## dbData ####
 
 #' @name dbData
