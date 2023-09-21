@@ -37,10 +37,13 @@ by multiple columns (ascending), starting with the first specified."><!-- mathja
       <a href="../articles/benchmark-logNormalization.html">Benchmarking DuckDB and Sparse Matrix Operation</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Intro</a>
+      <a href="../articles/intro.html">Duckling Backend for Database Backed Structures</a>
     </li>
     <li>
       <a href="../articles/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../articles/spatially_chunked_operations.html">Spatial Operations</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -90,7 +93,7 @@ by multiple columns (ascending), starting with the first specified.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_objects.html">simulate_dbDataFrame</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">simulate_dbDataFrame</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in simulate_dbDataFrame():</span> could not find function "simulate_dbDataFrame"</span>
 <span class="r-in"><span><span class="fu">keyCol</span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Sepal.Length'</span>, <span class="st">'Sepal.Width'</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'd' not found</span>

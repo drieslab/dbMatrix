@@ -40,10 +40,13 @@ should be defined for the internal tbl_sql."><!-- mathjax --><script src="https:
       <a href="../articles/benchmark-logNormalization.html">Benchmarking DuckDB and Sparse Matrix Operation</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Intro</a>
+      <a href="../articles/intro.html">Duckling Backend for Database Backed Structures</a>
     </li>
     <li>
       <a href="../articles/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../articles/spatially_chunked_operations.html">Spatial Operations</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -94,7 +97,7 @@ across either the geometry OR value data.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dbPoly</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_objects.html">simulate_dbPolygonProxy</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dbPoly</span> <span class="op">&lt;-</span> <span class="fu">simulate_dbPolygonProxy</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in simulate_dbPolygonProxy():</span> could not find function "simulate_dbPolygonProxy"</span>
 <span class="r-in"><span><span class="va">dbPoly_filtered</span> <span class="op">&lt;-</span> <span class="fu">filter_dbspat</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dbpoly</span>,</span></span>
 <span class="r-in"><span>                                 by_value <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">dbspd</span><span class="op">)</span> <span class="op">{</span></span></span>

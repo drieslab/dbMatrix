@@ -35,10 +35,13 @@
       <a href="../articles/benchmark-logNormalization.html">Benchmarking DuckDB and Sparse Matrix Operation</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Intro</a>
+      <a href="../articles/intro.html">Duckling Backend for Database Backed Structures</a>
     </li>
     <li>
       <a href="../articles/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../articles/spatially_chunked_operations.html">Spatial Operations</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -96,17 +99,17 @@ duckling object</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dbpoly</span> <span class="op">=</span> <span class="fu"><a href="simulate_objects.html">simulate_dbPolygonProxy</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dbpoly</span> <span class="op">=</span> <span class="fu">simulate_dbPolygonProxy</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in simulate_dbPolygonProxy():</span> could not find function "simulate_dbPolygonProxy"</span>
 <span class="r-in"><span><span class="fu">tableInfo</span><span class="op">(</span><span class="va">dbpoly</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'tableInfo': object 'dbpoly' not found</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dbpoints</span> <span class="op">=</span> <span class="fu"><a href="simulate_objects.html">simulate_dbPointsProxy</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dbpoints</span> <span class="op">=</span> <span class="fu">simulate_dbPointsProxy</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in simulate_dbPointsProxy():</span> could not find function "simulate_dbPointsProxy"</span>
 <span class="r-in"><span><span class="fu">tableInfo</span><span class="op">(</span><span class="va">dbpoints</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'tableInfo': object 'dbpoints' not found</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dbDF</span> <span class="op">=</span> <span class="fu"><a href="simulate_objects.html">simulate_dbDataFrame</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dbDF</span> <span class="op">=</span> <span class="fu">simulate_dbDataFrame</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in simulate_dbDataFrame():</span> could not find function "simulate_dbDataFrame"</span>
 <span class="r-in"><span><span class="fu">tableInfo</span><span class="op">(</span><span class="va">dbDF</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'tableInfo': object 'dbDF' not found</span>

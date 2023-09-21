@@ -188,15 +188,12 @@ setMethod('rowSums', signature(x = 'dbSparseMatrix'),
             x = castNumeric(x)
 
             # get non-zero column idx (factors) and convert to integers
-            row_indices = sparse[] %>%
+            row_indices = x[] %>%
               dplyr::arrange(i) %>%
               dplyr::pull(i) %>%
               unique() %>%
               as.integer()
-
-            # get non-zero column names by column idx
-            val_names = factor(rownames(x)[row_indices])
-
+            
             # calculate rowSums
             vals = x[] %>%
               dplyr::group_by(i) %>%
@@ -204,12 +201,31 @@ setMethod('rowSums', signature(x = 'dbSparseMatrix'),
               dplyr::arrange(i) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-
+            
+            # get non-zero row names by row idx
+            val_names = factor(rownames(x)[row_indices])
+            
             # set dimnames
             names(vals) = val_names
-
+            
+            # find total rows
+            total_rows <- dim(x)[1]
+            
+            # find missing row indices
+            missing_rows <- setdiff(1:total_rows, row_indices)
+            
+            # add missing rows with zero values and names
+            missing_rows_zeros <- setNames(rep(0, length(missing_rows)), paste0("row", missing_rows))
+            
+            # combine zero and nonzero rows
+            vals <- c(vals, missing_rows_zeros)
+            
+            # sort vals by row index
+            vals <- vals[order(as.numeric(gsub("row", "", names(vals))))]
+            
             # show
             vals
+            
           })
 
 ## colSums ####
@@ -221,9 +237,9 @@ setMethod('colSums', signature(x = 'dbDenseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-
+            
             val_names = colnames(x)
-
+            
             # calculate colSums
             vals = x[] %>%
               dplyr::group_by(j) %>%
@@ -231,10 +247,10 @@ setMethod('colSums', signature(x = 'dbDenseMatrix'),
               dplyr::arrange(j) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-
+            
             # set dimnames
             names(vals) = val_names
-
+            
             # show
             vals
           })
@@ -246,17 +262,16 @@ setMethod('colSums', signature(x = 'dbSparseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-
+            
+            val_names = colnames(x)
+            
             # get non-zero column idx (factors) and convert to integers
-            col_indices = sparse[] %>%
+            col_indices = x[] %>%
               dplyr::arrange(j) %>%
               dplyr::pull(j) %>%
               unique() %>%
               as.integer()
-
-            # get non-zero column names by column idx
-            val_names = factor(colnames(x)[col_indices])
-
+            
             # calculate colSums
             vals = x[] %>%
               dplyr::group_by(j) %>%
@@ -264,10 +279,28 @@ setMethod('colSums', signature(x = 'dbSparseMatrix'),
               dplyr::arrange(j) %>%
               dplyr::collapse() %>%
               dplyr::pull(sum_x)
-
+            
+            # get non-zero col names by col idx
+            val_names = factor(colnames(x)[col_indices])
+            
             # set dimnames
             names(vals) = val_names
-
+            
+            # find total cols
+            total_cols <- dim(x)[2]
+            
+            # find missing col indices
+            missing_cols <- setdiff(1:total_cols, col_indices)
+            
+            # add missing cols with zero values and names
+            missing_cols_zeros <- setNames(rep(0, length(missing_cols)), paste0("col", missing_cols))
+            
+            # combine zero and nonzero cols
+            vals <- c(vals, missing_cols_zeros)
+            
+            # sort vals by col index
+            vals <- vals[order(as.numeric(gsub("col", "", names(vals))))]
+            
             # show
             vals
           })
@@ -307,26 +340,23 @@ setMethod('rowMeans', signature(x = 'dbSparseMatrix'),
           {
             x = reconnect(x)
             x = castNumeric(x)
-
+            
             # get non-zero column idx (factors) and convert to integers
-            row_indices = sparse[] %>%
+            row_indices = x[] %>%
               dplyr::arrange(i) %>%
               dplyr::pull(i) %>%
               unique() %>%
               as.integer() %>%
               sort()
-
+            
             # get non-zero column names by column idx
             val_names = factor(rownames(x)[row_indices])
-
+            
             # calculate
-            row_sums = Duckling::rowSums(x)
+            row_sums = rowSums(x)
             n_rows <- dim(x)[1]
             vals = row_sums / n_rows
-
-            # set dimnames
-            names(vals) = val_names
-
+            
             # show
             vals
           })
@@ -367,7 +397,7 @@ setMethod('colMeans', signature(x = 'dbSparseMatrix'),
             x = castNumeric(x)
 
             # get non-zero column idx (factors) and convert to integers
-            col_indices = sparse[] %>%
+            col_indices = x[] %>%
               dplyr::arrange(j) %>%
               dplyr::pull(j) %>%
               unique() %>%
@@ -378,21 +408,11 @@ setMethod('colMeans', signature(x = 'dbSparseMatrix'),
             val_names = factor(colnames(x)[col_indices])
 
             # calculate
-            col_sums = Duckling::colSums(x)
+            col_sums = colSums(x)
             n_cols <- dim(x)[2]
             vals = col_sums / n_cols
-
-            # set dimnames
-            names(vals) = val_names
 
             # show
-            vals
-
-            # val_names = rownames(x) #TODO: add rownames
-            n_cols <- dim(x)[2]
-            col_sums = Duckling::colSums(x)
-            vals = col_sums / n_cols
-            # names(vals) = val_names #TODO: add colnames
             vals
           })
 

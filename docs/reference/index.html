@@ -35,10 +35,13 @@
       <a href="../articles/benchmark-logNormalization.html">Benchmarking DuckDB and Sparse Matrix Operation</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Intro</a>
+      <a href="../articles/intro.html">Duckling Backend for Database Backed Structures</a>
     </li>
     <li>
       <a href="../articles/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../articles/spatially_chunked_operations.html">Spatial Operations</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -123,10 +126,6 @@ chunks after their chunk subset.
         </td>
         <td><p>Column data types of Duckling objects</p></td>
       </tr><tr><td>
-          <p><code><a href="computeDBMatrix.html">computeDBMatrix()</a></code> </p>
-        </td>
-        <td><p>Execute dplyr query of dbMatrix and save the results in remote database</p></td>
-      </tr><tr><td>
           <p><code><a href="createBackend.html">createBackend()</a></code> </p>
         </td>
         <td><p>Create Duckling backend</p></td>
@@ -135,21 +134,21 @@ chunks after their chunk subset.
         </td>
         <td><p>Create a dataframe with database backend</p></td>
       </tr><tr><td>
-          <p><code><a href="createDBMatrix.html">createDBMatrix()</a></code> </p>
+          <p><code><a href="createDBDenseMatrix.html">createDBDenseMatrix()</a></code> </p>
         </td>
-        <td><p>Create a matrix with database backend</p></td>
+        <td><p>Create a dense matrix with database backend</p></td>
       </tr><tr><td>
           <p><code><a href="createDBPolygonProxy.html">createDBPolygonProxy()</a></code> </p>
         </td>
         <td><p>Create a framework for chunked processing with terra polygon SpatVectors</p></td>
       </tr><tr><td>
+          <p><code><a href="createDBSparseMatrix.html">createDBSparseMatrix()</a></code> </p>
+        </td>
+        <td><p>Create a matrix with database backend</p></td>
+      </tr><tr><td>
           <p><code><a href="createTableBE.html">createTableBE()</a></code> </p>
         </td>
         <td><p>Create a table in the database backend</p></td>
-      </tr><tr><td>
-          <p><code><a href="create_dbSparseMatrix.html">create_dbSparseMatrix()</a></code> </p>
-        </td>
-        <td><p>Create a dbSparseMatrix object from a sparse matrix</p></td>
       </tr><tr><td>
           <p><code><a href="dbDataFrame-class.html">dbDataFrame-class</a></code> <code><a href="dbDataFrame-class.html">dbDataFrame</a></code> </p>
         </td>
@@ -174,6 +173,10 @@ chunks after their chunk subset.
           <p><code><a href="dbPolygonProxy-class.html">dbPolygonProxy-class</a></code> <code><a href="dbPolygonProxy-class.html">dbPolygonProxy</a></code> </p>
         </td>
         <td><p>S4 dbPolygonProxy class</p></td>
+      </tr><tr><td>
+          <p><code><a href="dbSemiSparseMatrix-class.html">dbSemiSparseMatrix-class</a></code> <code><a href="dbSemiSparseMatrix-class.html">dbSemiSparseMatrix</a></code> </p>
+        </td>
+        <td><p>S4 Class for dbSparseMatrix</p></td>
       </tr><tr><td>
           <p><code><a href="dbSettings.html">dbSettings(<i>&lt;ANY&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="dbSettings.html">dbSettings(<i>&lt;ANY&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
         </td>
@@ -270,10 +273,6 @@ chunks after their chunk subset.
           <p><code><a href="render_image.html">render_image()</a></code> </p>
         </td>
         <td><p>internal function for rasterized rendering from matrix data</p></td>
-      </tr><tr><td>
-          <p><code><a href="simulate_objects.html">simulate_duckdb()</a></code> <code><a href="simulate_objects.html">simulate_dbDataFrame()</a></code> <code><a href="simulate_objects.html">simulate_dbPointsProxy()</a></code> <code><a href="simulate_objects.html">simulate_dbPolygonProxy()</a></code> </p>
-        </td>
-        <td><p>Simulate Duckling objects</p></td>
       </tr><tr><td>
           <p><code><a href="sql_create_table.html">sql_create_pk_table()</a></code> </p>
         </td>

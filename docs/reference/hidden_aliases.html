@@ -36,10 +36,13 @@ Values are only returned as a dbDataFrame from dbSpatProxyData"><!-- mathjax -->
       <a href="../articles/benchmark-logNormalization.html">Benchmarking DuckDB and Sparse Matrix Operation</a>
     </li>
     <li>
-      <a href="../articles/intro.html">Intro</a>
+      <a href="../articles/intro.html">Duckling Backend for Database Backed Structures</a>
     </li>
     <li>
       <a href="../articles/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../articles/spatially_chunked_operations.html">Spatial Operations</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -215,26 +218,41 @@ Arith(e1, e2)
 # S4 method for dbMatrix,dbMatrix
 Ops(e1, e2)
 
-# S4 method for dbMatrix
+# S4 method for dbDenseMatrix
 rowSums(x, na.rm = FALSE, dims = 1, ...)
 
-# S4 method for dbMatrix
+# S4 method for dbDenseMatrix
 colSums(x, na.rm = FALSE, dims = 1, ...)
 
-# S4 method for dbMatrix
+# S4 method for dbSparseMatrix
+colSums(x, na.rm = FALSE, dims = 1, ...)
+
+# S4 method for dbDenseMatrix
 rowMeans(x, na.rm = FALSE, dims = 1, ...)
 
-# S4 method for dbMatrix
+# S4 method for dbSparseMatrix
+rowMeans(x, na.rm = FALSE, dims = 1, ...)
+
+# S4 method for dbDenseMatrix
 colMeans(x, na.rm = FALSE, dims = 1, ...)
 
-# S4 method for dbMatrix
+# S4 method for dbSparseMatrix
+colMeans(x, na.rm = FALSE, dims = 1, ...)
+
+# S4 method for dbDenseMatrix
 colSds(x, ...)
 
-# S4 method for dbMatrix
+# S4 method for dbSparseMatrix
+colSds(x, ...)
+
+# S4 method for dbDenseMatrix
+rowSds(x, ...)
+
+# S4 method for dbSparseMatrix
 rowSds(x, ...)
 
 # S4 method for dbMatrix
-t(x)
+mean(x, ...)
 
 # S4 method for dbPointsProxy
 t(x)
@@ -243,7 +261,7 @@ t(x)
 t(x)
 
 # S4 method for dbMatrix
-mean(x, ...)
+t(x)
 
 # S4 method for dbDataFrame
 nrow(x)
