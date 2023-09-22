@@ -154,7 +154,7 @@ chunk_ranges = function(start, stop, n_chunks) {
 #' @name getDBPath
 #' @title Get the database backend path
 #' @description
-#' Get the full normalized filepath of a Giotto backend database. Additionally
+#' Get the full normalized filepath of a duckling backend database. Additionally
 #' passing path = ':memory:' will directly return ':memory:' and ':temp:' will
 #' will have the function check tempdir() for the backend.
 #' @param path directory path in which to place the backend
@@ -168,15 +168,15 @@ getDBPath = function(path = ':temp:', extension = '.duckdb') {
                   path)
   parent = normalizePath(parent, mustWork = FALSE)
 
-  if(!basename(parent) == paste0('giotto_backend', extension)) {
-    full_path = file.path(parent, paste0('giotto_backend', extension))
+  if(!basename(parent) == paste0('duckling_backend', extension)) {
+    full_path = file.path(parent, paste0('duckling_backend', extension))
   } else {
     full_path = parent
   }
   full_path = normalizePath(full_path, mustWork = FALSE)
 
   if(!file.exists(full_path)) {
-    stopf('No Giotto backend found at\n',
+    stopf('No duckling backend found at\n',
           full_path,
           '\nPlease create or restart the backend.')
   }
@@ -209,7 +209,7 @@ backendSize = function(backend_ID) {
 
 
 # Internal function. Given a path and extension, create a full path that ends in
-# 'giotto_backend[extension]'.
+# 'duckling_backend[extension]'.
 # The path is normalized to ensure relative path param inputs have
 # the same outputs as the absolute path.
 #
@@ -226,7 +226,7 @@ set_db_path = function(path = ':temp:', extension = '.duckdb', verbose = TRUE) {
   parent = normalizePath(parent, mustWork = FALSE)
 
   # get dir if already full path
-  if(basename(parent) == paste0('giotto_backend', extension)) {
+  if(basename(parent) == paste0('duckling_backend', extension)) {
     parent = gsub(pattern = basename(parent),
                   replacement = '',
                   x = parent)
@@ -237,7 +237,7 @@ set_db_path = function(path = ':temp:', extension = '.duckdb', verbose = TRUE) {
     dir.create(dir.create(parent, recursive = TRUE))
   }
 
-  full_path = file.path(parent, paste0('giotto_backend', extension))
+  full_path = file.path(parent, paste0('duckling_backend', extension))
   if(isTRUE(verbose)) wrap_msg('Creating backend at\n', full_path)
   return(full_path)
 }
