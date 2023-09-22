@@ -54,8 +54,8 @@ sim_matrix = function(mat_type = c('dense', 'sparse'),
     data <- matrix(0, nrow = num_rows, ncol = num_cols)
 
     # Set n random values to non-zero
-    non_zero_indices <- sample(1:(50*50), 50)
-    data[non_zero_indices] <- rnorm(50)
+    non_zero_indices <- sample(1:(num_rows*num_cols), num_cols)
+    data[non_zero_indices] <- rnorm(num_cols)
 
     # Create dumby sparse dgc matrix (column-major) # TODO: row-major sparse matrices
     mat = as(data, "dgCMatrix")
@@ -104,12 +104,21 @@ sim_dbDataFrame = function(data = NULL, name = 'df_test', key = NA_character_) {
 #' @describeIn simulate_objects
 #' @details Simulate a dbSparseMatrix in memory
 #' @export
-sim_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test') {
+sim_dbSparseMatrix = function(dgc = NULL, 
+                              num_rows = 50, 
+                              num_cols = 50, 
+                              seed_num = 42, 
+                              name = 'sparse_test') {
+  # check if num_rows and num_cols are both greater than or equal to 10
+  if (num_rows < 10 | num_cols < 10) {
+    stop("Number of rows and columns must be at least 10.")
+  }
+
   if(is.null(dgc)) {
     dgc = sim_matrix(mat_type = 'sparse',
-                     num_rows = 50,
-                     num_cols = 50,
-                     seed_num = 42)
+                     num_rows = num_rows,
+                     num_cols = num_cols,
+                     seed_num = seed_num)
 
     data = sim_duckdb(data = dgc, name = name)
   }
@@ -129,21 +138,33 @@ sim_dbSparseMatrix = function(dgc = NULL, name = 'sparse_test') {
   col_names = as.factor(paste0("col", 1:num_cols))
   
   # create dbSparseMatrix obj
+  dim_size = c(as.integer(num_rows), as.integer(num_cols))
+
   res = dbSparseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
-                dims = c(50L,50L), dim_names = list(row_names, col_names),
-                init = TRUE)
+                       dims = dim_size, dim_names = list(row_names, col_names),
+                       init = TRUE)
   
   return(res)
 }
 
 #' @describeIn simulate_objects Simulate a dbSparseMatrix in memory
 #' @export
-sim_dbDenseMatrix = function(data = NULL, name = 'dense_test') {
+sim_dbDenseMatrix = function(data = NULL, 
+                             num_rows = 50,
+                             num_cols = 50,
+                             seed_num = 42,
+                             name = 'dense_test') {
+
+  # check if num_rows and num_cols are both greater than or equal to 10
+  if (num_rows < 10 | num_cols < 10) {
+    stop("Number of rows and columns must be at least 10.")
+  }
+  
   if(is.null(data)) {
     data = sim_matrix(mat_type = 'dense',
-                     num_rows = 50,
-                     num_cols = 50,
-                     seed_num = 42)
+                     num_rows = num_rows,
+                     num_cols = num_cols,
+                     seed_num = seed_num)
     data = sim_duckdb(data = data, name = name)
   }
   if(!inherits(data, 'tbl_sql')) {
@@ -172,8 +193,9 @@ sim_dbDenseMatrix = function(data = NULL, name = 'dense_test') {
   col_names = as.factor(paste0("col", 1:num_cols))
 
   # create obj
+  dim_size = c(as.integer(num_rows), as.integer(num_cols))
   res = dbDenseMatrix(data = data, remote_name = name, hash = 'ID_dummy',
-                dims = c(50L,50L), dim_names = list(row_names, col_names),
+                dims = dim_size, dim_names = list(row_names, col_names),
                 init = TRUE)
   
   return(res)
