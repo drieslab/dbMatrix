@@ -11,7 +11,7 @@ Description: Count matrices and data.frames on disk backed by DuckDB
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-URL: https://drieslab.github.io/dbMatrix/, https://ed2uiz.github.io/dbMatrix/
+URL: https://drieslab.github.io/dbMatrix/
 BugReports: https://github.com/drieslab/dbMatrix/issues
 RoxygenNote: 7.2.3
 Depends:
