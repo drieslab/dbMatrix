@@ -87,12 +87,8 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://drieslab.github.io/dbMatrix/">dbMatrix</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: Matrix</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dbMatrix'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:Matrix':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     colMeans, colSums, rowMeans, rowSums, t</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     colMeans, colSums, rowMeans, rowSums, t</span></span></code></pre></div>
@@ -107,6 +103,7 @@ the <code>data</code> directory of the package.</p>
 <code class="sourceCode R"><span><span class="va">dgc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"../data/dgc.rds"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">dgc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: Matrix</span></span>
 <span><span class="co">#&gt; Formal class 'dgCMatrix' [package "Matrix"] with 6 slots</span></span>
 <span><span class="co">#&gt;   ..@ i       : int [1:170625] 0 6 10 17 21 22 25 31 33 35 ...</span></span>
 <span><span class="co">#&gt;   ..@ p       : int [1:625] 0 227 510 758 980 1293 1631 1976 2223 2434 ...</span></span>
@@ -272,7 +269,7 @@ single-cell RNA-seq data, the matrix is sparse.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] dbMatrix_0.0.0.9012 Matrix_1.6-1.1     </span></span>
+<span><span class="co">#&gt; [1] Matrix_1.6-1.1      dbMatrix_0.0.0.9012</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] jsonlite_1.8.8     dplyr_1.1.4        compiler_4.3.2     tidyselect_1.2.0  </span></span>
@@ -283,10 +280,10 @@ single-cell RNA-seq data, the matrix is sparse.</p>
 <span><span class="co">#&gt; [21] rlang_1.1.3        utf8_1.2.4         cachem_1.0.8       stringi_1.8.3     </span></span>
 <span><span class="co">#&gt; [25] xfun_0.41          fs_1.6.3           sass_0.4.8         memoise_2.0.1     </span></span>
 <span><span class="co">#&gt; [29] cli_3.6.2          withr_2.5.2        pkgdown_2.0.7      magrittr_2.0.3    </span></span>
-<span><span class="co">#&gt; [33] digest_0.6.34      grid_4.3.2         dbplyr_2.4.0       lifecycle_1.0.4   </span></span>
+<span><span class="co">#&gt; [33] grid_4.3.2         digest_0.6.34      dbplyr_2.4.0       lifecycle_1.0.4   </span></span>
 <span><span class="co">#&gt; [37] vctrs_0.6.5        evaluate_0.23      glue_1.7.0         data.table_1.14.10</span></span>
 <span><span class="co">#&gt; [41] duckdb_0.9.2-1     ragg_1.2.7         fansi_1.0.6        rmarkdown_2.25    </span></span>
-<span><span class="co">#&gt; [45] purrr_1.0.2        pkgconfig_2.0.3    tools_4.3.2        htmltools_0.5.7</span></span></code></pre></div>
+<span><span class="co">#&gt; [45] purrr_1.0.2        tools_4.3.2        pkgconfig_2.0.3    htmltools_0.5.7</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

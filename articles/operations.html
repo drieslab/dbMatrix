@@ -230,7 +230,7 @@ the <code>data</code> directory of the package.</p>
 <h3 id="transpose">transpose<a class="anchor" aria-label="anchor" href="#transpose"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sparse</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sparse</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## connection :  :temp: </span></span>
 <span><span class="co">## table name : 'sparse'</span></span>
 <span><span class="co">## 624 x 634  matrix of class "dbSparseMatrix"</span></span></code></pre>
@@ -328,11 +328,12 @@ Click to expand
 <h2 id="dbdensematrix-operations">dbDenseMatrix Operations<a class="anchor" aria-label="anchor" href="#dbdensematrix-operations"></a>
 </h2>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dense</span> <span class="op">=</span> <span class="fu"><a href="../reference/simulate_objects.html">sim_dbDenseMatrix</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># below is a convenience function to simulate a dbDenseMatrix</span></span>
+<span><span class="va">dense</span> <span class="op">=</span> <span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="../reference/simulate_objects.html">sim_dbDenseMatrix</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># preview</span></span>
 <span><span class="va">dense</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/Rtmp8kfKKP/file193c3052fc4f.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpjEGP96/file191c261741bc.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span>
 <span><span class="co">##                                                              </span></span>
@@ -342,8 +343,8 @@ Click to expand
 <h3 id="transpose-1">transpose<a class="anchor" aria-label="anchor" href="#transpose-1"></a>
 </h3>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dense</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/Rtmp8kfKKP/file193c3052fc4f.duckdb </span></span>
+<code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dense</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpjEGP96/file191c261741bc.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'row1', 'row2', 'row3' ... suppressing 44 ...'row48', 'row49', 'row50' ]]</span></span></code></pre>
@@ -443,7 +444,7 @@ Click to expand
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] dbMatrix_0.0.0.9012 Matrix_1.6-1.1     </span></span>
+<span><span class="co">## [1] Matrix_1.6-1.1      dbMatrix_0.0.0.9012</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] jsonlite_1.8.8    dplyr_1.1.4       compiler_4.3.2    tidyselect_1.2.0 </span></span>
