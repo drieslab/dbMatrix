@@ -160,22 +160,48 @@ single-cell RNA-seq data, the matrix is sparse.</p>
 <code>dbSparseMatrix</code> results in a <code>dbDenseMatrix</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dbsm</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="co">#&gt; Called from: dbsm + 1</span></span>
+<span><span class="co">#&gt; debug: dbm = castNumeric(e1)</span></span>
+<span><span class="co">#&gt; debug: num_vect = if (typeof(e2) != "double") {</span></span>
+<span><span class="co">#&gt;     as.numeric(e2)</span></span>
+<span><span class="co">#&gt; } else {</span></span>
+<span><span class="co">#&gt;     e2</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; debug: e2</span></span>
+<span><span class="co">#&gt; debug: if (class(e1) == "dbSparseMatrix" &amp;&amp; !all(e2 == 0) &amp;&amp; as.character(.Generic) %in% </span></span>
+<span><span class="co">#&gt;     c("-", "+")) {</span></span>
+<span><span class="co">#&gt;     dbm = toDbDense(dbm)</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; debug: dbm = toDbDense(dbm)</span></span>
+<span><span class="co">#&gt; densifying sparse matrix on disk...donedebug: arith_call_dbm(dbm_narg = 1L, dbm = dbm, num_vect = num_vect, </span></span>
+<span><span class="co">#&gt;     generic_char = as.character(.Generic))</span></span>
 <span><span class="co">#&gt; connection :  :temp: </span></span>
 <span><span class="co">#&gt; table name : 'visium'</span></span>
-<span><span class="co">#&gt; 634 x 624  matrix of class "dbSparseMatrix"</span></span>
+<span><span class="co">#&gt; 634 x 624  matrix of class "dbDenseMatrix"</span></span>
 <span><span class="co">#&gt; [[ Colnames 'AAAGGGATGTAGCAAG-1', 'AAATGGCATGTCTTGT-1', 'AAATGGTCAATGTGCC-1' ... suppressing 618 ...'TTGTCGTTCAGTTACC-1', 'TTGTGGCCCTGACAGT-1', 'TTGTTCAGTGTGCTAC-1' ]]</span></span>
-<span><span class="co">#&gt;                                   </span></span>
-<span><span class="co">#&gt; Gna12         2 3 2 2 10 2 4 6 4 .</span></span>
-<span><span class="co">#&gt; Ccnd2         . 2 2 .  . 2 . 2 2 .</span></span>
-<span><span class="co">#&gt; Btbd17        . 2 2 2  . . 3 . . .</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ......suppressing 614 columns and 628 rows</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Gm19935       . 2 . .  . . . . . .</span></span>
-<span><span class="co">#&gt; 9630013A20Rik . . . .  . . . . . .</span></span>
-<span><span class="co">#&gt; 2900040C04Rik 2 . . .  . . . . . 2</span></span>
+<span><span class="co">#&gt;                 </span></span>
+<span><span class="co">#&gt;    1 2 3 2 3 4 2</span></span>
+<span><span class="co">#&gt;    2 1 2 2 2 2 1</span></span>
+<span><span class="co">#&gt;    3 1 2 2 1 1 1</span></span>
+<span><span class="co">#&gt;  632 1 2 1 1 1 1</span></span>
+<span><span class="co">#&gt;  633 1 1 1 2 1 1</span></span>
+<span><span class="co">#&gt;  634 2 1 1 1 1 1</span></span>
 <span></span>
 <span><span class="va">dbsm</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span><span class="co">#&gt; Called from: dbsm * 100</span></span>
+<span><span class="co">#&gt; debug: dbm = castNumeric(e1)</span></span>
+<span><span class="co">#&gt; debug: num_vect = if (typeof(e2) != "double") {</span></span>
+<span><span class="co">#&gt;     as.numeric(e2)</span></span>
+<span><span class="co">#&gt; } else {</span></span>
+<span><span class="co">#&gt;     e2</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; debug: e2</span></span>
+<span><span class="co">#&gt; debug: if (class(e1) == "dbSparseMatrix" &amp;&amp; !all(e2 == 0) &amp;&amp; as.character(.Generic) %in% </span></span>
+<span><span class="co">#&gt;     c("-", "+")) {</span></span>
+<span><span class="co">#&gt;     dbm = toDbDense(dbm)</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; debug: arith_call_dbm(dbm_narg = 1L, dbm = dbm, num_vect = num_vect, </span></span>
+<span><span class="co">#&gt;     generic_char = as.character(.Generic))</span></span>
 <span><span class="co">#&gt; connection :  :temp: </span></span>
 <span><span class="co">#&gt; table name : 'visium'</span></span>
 <span><span class="co">#&gt; 634 x 624  matrix of class "dbSparseMatrix"</span></span>
