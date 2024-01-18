@@ -59,110 +59,22 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9013" id="dbmatrix-0009013-2024-01-18">dbMatrix 0.0.0.9013 (2024-01-18)<a class="anchor" aria-label="anchor" href="#dbmatrix-0009013-2024-01-18"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-0-9013">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-9013"></a></h3>
-<ul><li><p>Densify conditional.</p></li>
-<li><p>Add dev to gha workflow.</p></li>
-<li><p>Only densify if necessary. != 0, +/-.</p></li>
-<li><p>ToDbDense() previously updated table by value. change to update by reference via VIEW creation of table named ‘dense’.</p></li>
-<li><p>Bug in calculation of aggregate operations.</p></li>
-<li><p>Housekeeping after con slot removal.</p></li>
-<li><p>Mean for dbSparseMatrix.</p></li>
-<li><p>Mean generic for dbDenseMatrix.</p></li>
-<li><p>Updates to dbSparseMatrix rowMeans, colMeans.</p></li>
-<li><p>Updates to colSums and rowSums for dbSparseMatrix.</p></li>
-<li><p>Update dbMatrix constructor dimnames issues.</p></li>
-<li><p>Methods::as scope correction.</p></li>
+<ul><li>Rename and update dbIndex superclass to fix indexing bugs.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="features-0-0-0-9013">Features<a class="anchor" aria-label="anchor" href="#features-0-0-0-9013"></a></h3>
-<ul><li><p>Add as_matrix() convenience function.</p></li>
-<li><p>Add as_matrix() function.</p></li>
-<li><p>Add dbListTables().</p></li>
-<li><p>Add dbListTables.</p></li>
-<li><p>Add dbDisconnect to NAMESPACE.</p></li>
-<li><p>Add dbDisconnect generic.</p></li>
-<li><p>Update accessors and add get_con().</p></li>
-<li><p>Add Matrix as dep.</p></li>
-<li><p>Add methods to deps.</p></li>
+<ul><li>Add experimental as_matrix() convenience function.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="chore-0-0-0-9013">Chore<a class="anchor" aria-label="anchor" href="#chore-0-0-0-9013"></a></h3>
 <ul><li><p>Update docs.</p></li>
-<li><p>Remove browser() call.</p></li>
-<li><p>Remove browser().</p></li>
-<li><p>Migrate site links to drieslab.</p></li>
 <li><p>Migrate site ilnks to drieslab.</p></li>
-<li><p>Update vignettes.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update gitignore.</p></li>
-<li><p>Update vignettes.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update gitignore.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Remove <code>googledrive</code> from imports.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Add <code>googledrive</code> to imports.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update NEWS.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update README.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update site.</p></li>
-<li><p>Update gitignore.</p></li>
-<li><p>Update DESCRIPTION, remove redundant Matrix import, dep.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update roxygen for operations.</p></li>
-<li><p>Update .gitignore.</p></li>
-<li><p>Updates.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Delete .Rhistory.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update docs, gitignore, tests/.</p></li>
-<li><p>Update docs.</p></li>
-<li><p>Update ignore.</p></li>
-<li><p>Add docs.</p></li>
-<li><p>dbMatrix migration, update docs and DESCRIPTION.</p></li>
-<li><p>Migration dbMatrix.</p></li>
+<li><p>Move {Matrix} to Imports.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-0-0-0-9013">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-0-0-9013"></a></h3>
 <ul><li><p>Update overview.Rmd.</p></li>
 <li><p>Update operations vignette.</p></li>
-</ul></div>
-<div class="section level3">
-<h3 id="uncategorized-0-0-0-9013">Uncategorized<a class="anchor" aria-label="anchor" href="#uncategorized-0-0-0-9013"></a></h3>
-<ul><li><p>Remove fpeek.</p></li>
-<li><p>Fix bug in getting backendInfo.</p></li>
-<li><p>Fix bug in reading number of rows.</p></li>
-<li><p>Merge branch ‘main’ of <a href="https://github.com/jiajic/GiottoDB" class="external-link uri">https://github.com/jiajic/GiottoDB</a>.</p></li>
-<li><p>Merge branch ‘drieslab:main’ into main.</p></li>
-<li><p>Add dbPointsProxy creation.</p></li>
-<li><p>Add improved table creation pipeline to allow PK and col data type setting separately from defaults detection.</p></li>
-<li><p>Add extract generics for dbPointsProxy.</p></li>
-<li><p>Added querying of dbPolygonProxy and dbPointsProxy.</p></li>
-<li><p>Updated file reading and exposed method of adding custom fields information during DB table creation.</p></li>
-<li><p>Fleshed out implementations of database spatial point and polygon represenations.</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/17" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/17</a> (<a href="https://github.com/drieslab/dbMatrix/issues/17" class="external-link">#17</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/15" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/15</a> (<a href="https://github.com/drieslab/dbMatrix/issues/15" class="external-link">#15</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/14" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/14</a> (<a href="https://github.com/drieslab/dbMatrix/issues/14" class="external-link">#14</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/13" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/13</a> (<a href="https://github.com/drieslab/dbMatrix/issues/13" class="external-link">#13</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/12" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/12</a> (<a href="https://github.com/drieslab/dbMatrix/issues/12" class="external-link">#12</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/11" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/11</a> (<a href="https://github.com/drieslab/dbMatrix/issues/11" class="external-link">#11</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/10" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/10</a> (<a href="https://github.com/drieslab/dbMatrix/issues/10" class="external-link">#10</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/9" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/9</a> (<a href="https://github.com/drieslab/dbMatrix/issues/9" class="external-link">#9</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/8" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/8</a> (<a href="https://github.com/drieslab/dbMatrix/issues/8" class="external-link">#8</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/7" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/7</a> (<a href="https://github.com/drieslab/dbMatrix/issues/7" class="external-link">#7</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/6" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/6</a> (<a href="https://github.com/drieslab/dbMatrix/issues/6" class="external-link">#6</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/5" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/5</a> (<a href="https://github.com/drieslab/dbMatrix/issues/5" class="external-link">#5</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/4" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/4</a> (<a href="https://github.com/drieslab/dbMatrix/issues/4" class="external-link">#4</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/3" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/3</a> (<a href="https://github.com/drieslab/dbMatrix/issues/3" class="external-link">#3</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/2" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/2</a> (<a href="https://github.com/drieslab/dbMatrix/issues/2" class="external-link">#2</a>).</p></li>
-<li><p>PLACEHOLDER <a href="https://github.com/drieslab/dbMatrix/pull/1" class="external-link uri">https://github.com/drieslab/dbMatrix/pull/1</a> (<a href="https://github.com/drieslab/dbMatrix/issues/1" class="external-link">#1</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
