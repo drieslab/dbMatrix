@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dbMatrix</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,11 +102,10 @@ matrices in an embedded database powered by DuckDB.</p>
 <p>Sparse matrices are represented as triplet vectors with
 <code>i</code>, <code>j</code>, and <code>x</code> numerical vectors.
 <code>i</code> and <code>j</code> refer to the row and column indices,
-respectively, with specific <code>x</code> values or counts. Note:
-unlike the rest of R, the <code>i</code> and <code>j</code> vectors are
-zero-indexed following conventions from the <code>Matrix</code> R
-package for the <code>dgCMatrix</code> and <code>TSparseMatrix</code>
-class.</p>
+respectively, with specific <code>x</code> values or counts. Note: The
+<code>i</code> and <code>j</code> vectors are one-based following
+conventions from the <code>Matrix</code> R package and the
+<code>TSparseMatrix</code> class.</p>
 <p>The <code>dbSparseMatrix</code> class stores the triplet vector
 representation with its associated dimension names and dimensions if
 available. If none are provided, they are automatically generated as
