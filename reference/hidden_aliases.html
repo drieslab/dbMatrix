@@ -13,6 +13,7 @@ rowSds
 rowSds
 mean
 mean
+log
 Transpose
 nrow
 ncol
@@ -32,6 +33,7 @@ rowSds
 rowSds
 mean
 mean
+log
 Transpose
 nrow
 ncol
@@ -48,7 +50,7 @@ dim"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax
     
     <a class="navbar-brand me-2" href="../index.html">dbMatrix</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9015</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,6 +111,7 @@ dim"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax
 <p>rowSds</p>
 <p>mean</p>
 <p>mean</p>
+<p>log</p>
 <p>Transpose</p>
 <p>nrow</p>
 <p>ncol</p>
@@ -247,6 +250,9 @@ mean(x, ...)
 
 # S4 method for dbSparseMatrix
 mean(x, ...)
+
+# S4 method for dbMatrix
+log(x, ...)
 
 # S4 method for dbMatrix
 t(x)
