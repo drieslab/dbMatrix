@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dbMatrix</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9016</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9017</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Operations</h1>
             
-            <h4 data-toc-skip class="date">2024-01-28</h4>
+            <h4 data-toc-skip class="date">2024-02-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/drieslab/dbMatrix/blob/HEAD/vignettes/operations.Rmd" class="external-link"><code>vignettes/operations.Rmd</code></a></small>
       <div class="d-none name"><code>operations.Rmd</code></div>
@@ -210,7 +210,7 @@ the <code>data</code> directory of the package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create dbSparseMatrix from the same dgc</span></span>
 <span><span class="va">sparse</span> <span class="op">=</span> <span class="fu"><a href="../reference/createDBMatrix.html">createDBMatrix</a></span><span class="op">(</span>value <span class="op">=</span> <span class="va">dgc</span>, </span>
-<span>                        db_path <span class="op">=</span> <span class="st">":temp:"</span>, </span>
+<span>                        db_path <span class="op">=</span> <span class="st">":memory:"</span>, </span>
 <span>                        name <span class="op">=</span> <span class="st">"sparse"</span>, </span>
 <span>                        class <span class="op">=</span> <span class="st">"dbSparseMatrix"</span>,</span>
 <span>                        overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -218,7 +218,7 @@ the <code>data</code> directory of the package.</p>
 <span><span class="co"># preview </span></span>
 <span><span class="co"># show function aims to emulate the show method for dgCMatrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sparse</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  :temp: </span></span>
+<pre><code><span><span class="co">## connection :  :memory: </span></span>
 <span><span class="co">## table name : 'sparse'</span></span>
 <span><span class="co">## 6 x 624  matrix of class "dbSparseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'AAAGGGATGTAGCAAG-1', 'AAATGGCATGTCTTGT-1', 'AAATGGTCAATGTGCC-1' ... suppressing 618 ...'TTGTCGTTCAGTTACC-1', 'TTGTGGCCCTGACAGT-1', 'TTGTTCAGTGTGCTAC-1' ]]</span></span></code></pre>
@@ -231,7 +231,7 @@ the <code>data</code> directory of the package.</p>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sparse</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  :temp: </span></span>
+<pre><code><span><span class="co">## connection :  :memory: </span></span>
 <span><span class="co">## table name : 'sparse'</span></span>
 <span><span class="co">## 624 x 634  matrix of class "dbSparseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'Gna12', 'Ccnd2', 'Btbd17' ... suppressing 628 ...'Gm19935', '9630013A20Rik', '2900040C04Rik' ]]</span></span></code></pre>
@@ -333,24 +333,26 @@ Click to expand
 <span></span>
 <span><span class="co"># preview</span></span>
 <span><span class="va">dense</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/RtmpEBNqSO/file19d92822ec7b.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpHYKBT1/file194d589ac891.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span>
-<span><span class="co">##                                                              </span></span>
-<span><span class="co">##   1  1.37096  0.321925  1.20097  0.216522  1.327505 -0.389880</span></span>
-<span><span class="co">##  [ reached getOption("max.print") -- omitted 5 rows ]</span></span></code></pre>
+<span><span class="co">## Key: &lt;i&gt;</span></span>
+<span><span class="co">##                                                                 </span></span>
+<span><span class="co">##  &lt;int&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span></span>
+<span><span class="co">##  [ reached getOption("max.print") -- omitted 6 rows ]</span></span></code></pre>
 <div class="section level3">
 <h3 id="transpose-1">transpose<a class="anchor" aria-label="anchor" href="#transpose-1"></a>
 </h3>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dense</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/RtmpEBNqSO/file19d92822ec7b.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpHYKBT1/file194d589ac891.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'row1', 'row2', 'row3' ... suppressing 44 ...'row48', 'row49', 'row50' ]]</span></span></code></pre>
-<pre><code><span><span class="co">##                                                              </span></span>
-<span><span class="co">##   1  1.37096 -0.564698  0.363128  1.444101 -0.431446  0.65565</span></span>
-<span><span class="co">##  [ reached getOption("max.print") -- omitted 5 rows ]</span></span></code></pre>
+<pre><code><span><span class="co">## Key: &lt;i&gt;</span></span>
+<span><span class="co">##                                                                 </span></span>
+<span><span class="co">##  &lt;int&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">##  [ reached getOption("max.print") -- omitted 6 rows ]</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="colmeans-1">colMeans<a class="anchor" aria-label="anchor" href="#colmeans-1"></a>
@@ -444,7 +446,8 @@ Click to expand
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] Matrix_1.6-1.1      dbMatrix_0.0.0.9016</span></span>
+<span><span class="co">## [1] Matrix_1.6-1.1        dbMatrix_0.0.0.9017   MatrixGenerics_1.14.0</span></span>
+<span><span class="co">## [4] matrixStats_1.2.0    </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] jsonlite_1.8.8    dplyr_1.1.4       compiler_4.3.2    tidyselect_1.2.0 </span></span>
