@@ -152,8 +152,10 @@ single-cell RNA-seq data, the matrix is sparse.</p>
 <code>dgc</code> object.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Note: by default the constructor creates a dbMatrix object in-memory</span></span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/duckdb/man/duckdb.html" class="external-link">duckdb</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">dbsm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createDBMatrix.html">createDBMatrix</a></span><span class="op">(</span>value <span class="op">=</span> <span class="va">dgc</span>, </span>
-<span>                       db_path <span class="op">=</span> <span class="st">":memory:"</span>, </span>
+<span>                       con <span class="op">=</span> <span class="va">con</span>, </span>
 <span>                       name <span class="op">=</span> <span class="st">'visium'</span>, </span>
 <span>                       class <span class="op">=</span> <span class="st">"dbSparseMatrix"</span>,</span>
 <span>                       overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -308,7 +310,7 @@ single-cell RNA-seq data, the matrix is sparse.</p>
 <span><span class="co">#&gt; [13] R6_2.5.1          generics_0.1.3    knitr_1.45        tibble_3.2.1     </span></span>
 <span><span class="co">#&gt; [17] desc_1.4.3        DBI_1.2.1         bslib_0.6.1       pillar_1.9.0     </span></span>
 <span><span class="co">#&gt; [21] rlang_1.1.3       utf8_1.2.4        cachem_1.0.8      stringi_1.8.3    </span></span>
-<span><span class="co">#&gt; [25] xfun_0.41         fs_1.6.3          sass_0.4.8        memoise_2.0.1    </span></span>
+<span><span class="co">#&gt; [25] xfun_0.42         fs_1.6.3          sass_0.4.8        memoise_2.0.1    </span></span>
 <span><span class="co">#&gt; [29] cli_3.6.2         withr_3.0.0       pkgdown_2.0.7     magrittr_2.0.3   </span></span>
 <span><span class="co">#&gt; [33] grid_4.3.2        digest_0.6.34     dbplyr_2.4.0      lifecycle_1.0.4  </span></span>
 <span><span class="co">#&gt; [37] vctrs_0.6.5       evaluate_0.23     glue_1.7.0        data.table_1.15.0</span></span>

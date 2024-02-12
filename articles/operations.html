@@ -78,7 +78,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Operations</h1>
             
-            <h4 data-toc-skip class="date">2024-02-08</h4>
+            <h4 data-toc-skip class="date">2024-02-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/drieslab/dbMatrix/blob/HEAD/vignettes/operations.Rmd" class="external-link"><code>vignettes/operations.Rmd</code></a></small>
       <div class="d-none name"><code>operations.Rmd</code></div>
@@ -209,17 +209,19 @@ the <code>data</code> directory of the package.</p>
 <span><span class="co">##   ..@ factors : list()</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create dbSparseMatrix from the same dgc</span></span>
-<span><span class="va">sparse</span> <span class="op">=</span> <span class="fu"><a href="../reference/createDBMatrix.html">createDBMatrix</a></span><span class="op">(</span>value <span class="op">=</span> <span class="va">dgc</span>, </span>
-<span>                        db_path <span class="op">=</span> <span class="st">":memory:"</span>, </span>
-<span>                        name <span class="op">=</span> <span class="st">"sparse"</span>, </span>
-<span>                        class <span class="op">=</span> <span class="st">"dbSparseMatrix"</span>,</span>
-<span>                        overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/duckdb/man/duckdb.html" class="external-link">duckdb</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sparse</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createDBMatrix.html">createDBMatrix</a></span><span class="op">(</span>value <span class="op">=</span> <span class="va">dgc</span>, </span>
+<span>                         con <span class="op">=</span> <span class="va">con</span>, </span>
+<span>                         name <span class="op">=</span> <span class="st">'visium'</span>, </span>
+<span>                         class <span class="op">=</span> <span class="st">"dbSparseMatrix"</span>,</span>
+<span>                         overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># preview </span></span>
 <span><span class="co"># show function aims to emulate the show method for dgCMatrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sparse</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## connection :  :memory: </span></span>
-<span><span class="co">## table name : 'sparse'</span></span>
+<span><span class="co">## table name : 'visium'</span></span>
 <span><span class="co">## 6 x 624  matrix of class "dbSparseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'AAAGGGATGTAGCAAG-1', 'AAATGGCATGTCTTGT-1', 'AAATGGTCAATGTGCC-1' ... suppressing 618 ...'TTGTCGTTCAGTTACC-1', 'TTGTGGCCCTGACAGT-1', 'TTGTTCAGTGTGCTAC-1' ]]</span></span></code></pre>
 <pre><code><span><span class="co">##                                  </span></span>
@@ -232,7 +234,7 @@ the <code>data</code> directory of the package.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sparse</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## connection :  :memory: </span></span>
-<span><span class="co">## table name : 'sparse'</span></span>
+<span><span class="co">## table name : 'visium'</span></span>
 <span><span class="co">## 624 x 634  matrix of class "dbSparseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'Gna12', 'Ccnd2', 'Btbd17' ... suppressing 628 ...'Gm19935', '9630013A20Rik', '2900040C04Rik' ]]</span></span></code></pre>
 <pre><code><span><span class="co">##                                       </span></span>
@@ -333,7 +335,7 @@ Click to expand
 <span></span>
 <span><span class="co"># preview</span></span>
 <span><span class="va">dense</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/Rtmp67ivDF/file191c6bfb655e.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpcDxw4Q/file1989730f1753.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span>
 <span><span class="co">## Key: &lt;i&gt;</span></span>
@@ -345,7 +347,7 @@ Click to expand
 </h3>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dense</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/Rtmp67ivDF/file191c6bfb655e.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpcDxw4Q/file1989730f1753.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'row1', 'row2', 'row3' ... suppressing 44 ...'row48', 'row49', 'row50' ]]</span></span></code></pre>
