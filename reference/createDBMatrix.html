@@ -65,7 +65,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">createDBMatrix</span><span class="op">(</span></span>
 <span>  <span class="va">value</span>,</span>
 <span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  db_path <span class="op">=</span> <span class="st">":temp:"</span>,</span>
+<span>  con <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"dbMatrix"</span>,</span>
 <span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -84,8 +84,8 @@
 <dd><p>class of the dbMatrix: <code>dbDenseMatrix</code> or <code>dbSparseMatrix</code> <code>(required)</code></p></dd>
 
 
-<dt>db_path</dt>
-<dd><p>path to database on disk (relative or absolute), in memory <code>(":memory:")</code>, or temporary file <code>(":temp:")</code></p></dd>
+<dt>con</dt>
+<dd><p>DBI or duckdb connection object <code>(required)</code></p></dd>
 
 
 <dt>overwrite</dt>

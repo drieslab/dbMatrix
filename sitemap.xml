@@ -52,6 +52,18 @@
     <loc>https://drieslab.github.io/dbMatrix/reference/dbSparseMatrix-class.html</loc>
   </url>
   <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/dot-check_con.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/dot-check_name.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/dot-check_overwrite.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/dot-check_value.html</loc>
+  </url>
+  <url>
     <loc>https://drieslab.github.io/dbMatrix/reference/flex_window_order.html</loc>
   </url>
   <url>
@@ -79,7 +91,13 @@
     <loc>https://drieslab.github.io/dbMatrix/reference/nrow.html</loc>
   </url>
   <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/precompute.html</loc>
+  </url>
+  <url>
     <loc>https://drieslab.github.io/dbMatrix/reference/print_array.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/save.html</loc>
   </url>
   <url>
     <loc>https://drieslab.github.io/dbMatrix/reference/simulate_objects.html</loc>

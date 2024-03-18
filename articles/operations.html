@@ -78,7 +78,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Operations</h1>
             
-            <h4 data-toc-skip class="date">2024-02-12</h4>
+            <h4 data-toc-skip class="date">2024-03-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/drieslab/dbMatrix/blob/HEAD/vignettes/operations.Rmd" class="external-link"><code>vignettes/operations.Rmd</code></a></small>
       <div class="d-none name"><code>operations.Rmd</code></div>
@@ -209,7 +209,7 @@ the <code>data</code> directory of the package.</p>
 <span><span class="co">##   ..@ factors : list()</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create dbSparseMatrix from the same dgc</span></span>
-<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/duckdb/man/duckdb.html" class="external-link">duckdb</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html" class="external-link">duckdb</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sparse</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createDBMatrix.html">createDBMatrix</a></span><span class="op">(</span>value <span class="op">=</span> <span class="va">dgc</span>, </span>
 <span>                         con <span class="op">=</span> <span class="va">con</span>, </span>
@@ -335,26 +335,34 @@ Click to expand
 <span></span>
 <span><span class="co"># preview</span></span>
 <span><span class="va">dense</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/RtmpoEEDYM/file198813015516.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpcL5f4R/file1a5573653eea.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span>
-<span><span class="co">## Key: &lt;i&gt;</span></span>
-<span><span class="co">##                                                                 </span></span>
-<span><span class="co">##  &lt;int&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span></span>
-<span><span class="co">##  [ reached getOption("max.print") -- omitted 6 rows ]</span></span></code></pre>
+<span><span class="co">##  <span style="color: #0000BB;">1</span> <span style="color: #0000BB;">2</span> <span style="color: #0000BB;">3</span> <span style="color: #0000BB;">…</span> <span style="color: #0000BB;">48</span>    <span style="color: #0000BB;">49</span>    <span style="color: #0000BB;">50</span></span></span>
+<span><span class="co">## <span style="color: #0000BB;">1</span>   1.3709584   0.3219253   1.2009654  <span style="color: #555555;">…</span>  0.21652165  1.32750456 -0.38988011</span></span>
+<span><span class="co">## <span style="color: #0000BB;">2</span>  -0.5646982  -0.7838389   1.0447511  <span style="color: #555555;">…</span> -0.11474984 -0.60083583 -0.09926326</span></span>
+<span><span class="co">## <span style="color: #0000BB;">3</span>   0.3631284   1.5757275  -1.0032086  <span style="color: #555555;">…</span>  0.02033812  0.05650686 -0.02796606</span></span>
+<span><span class="co">## <span style="color: #0000BB;">⋮</span>  <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">.</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span></span></span>
+<span><span class="co">## <span style="color: #0000BB;">48</span>  1.44410126 -1.45921400 -0.43316903 <span style="color: #555555;">…</span> -0.07366122 -0.03470590  0.69766736</span></span>
+<span><span class="co">## <span style="color: #0000BB;">49</span> -0.43144620  0.07998255  0.69686258 <span style="color: #555555;">…</span> -0.77443033 -0.92074382 -0.14444880</span></span>
+<span><span class="co">## <span style="color: #0000BB;">50</span>  0.65564788  0.65320434 -1.05636841 <span style="color: #555555;">…</span>  0.59381614  1.14805515  0.49854340</span></span></code></pre>
 <div class="section level3">
 <h3 id="transpose-1">transpose<a class="anchor" aria-label="anchor" href="#transpose-1"></a>
 </h3>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dbMatrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dense</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## connection :  /tmp/RtmpoEEDYM/file198813015516.duckdb </span></span>
+<pre><code><span><span class="co">## connection :  /tmp/RtmpcL5f4R/file1a5573653eea.duckdb </span></span>
 <span><span class="co">## table name : 'dense_test'</span></span>
 <span><span class="co">## 50 x 50  matrix of class "dbDenseMatrix"</span></span></code></pre>
 <pre><code><span><span class="co">## [[ Colnames 'row1', 'row2', 'row3' ... suppressing 44 ...'row48', 'row49', 'row50' ]]</span></span></code></pre>
-<pre><code><span><span class="co">## Key: &lt;i&gt;</span></span>
-<span><span class="co">##                                                                 </span></span>
-<span><span class="co">##  &lt;int&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">##  [ reached getOption("max.print") -- omitted 6 rows ]</span></span></code></pre>
+<pre><code><span><span class="co">##  <span style="color: #0000BB;">1</span> <span style="color: #0000BB;">2</span> <span style="color: #0000BB;">3</span> <span style="color: #0000BB;">…</span> <span style="color: #0000BB;">48</span>    <span style="color: #0000BB;">49</span>    <span style="color: #0000BB;">50</span></span></span>
+<span><span class="co">## <span style="color: #0000BB;">1</span>   1.3709584  -0.5646982   0.3631284  <span style="color: #555555;">…</span>  1.44410126 -0.43144620  0.65564788</span></span>
+<span><span class="co">## <span style="color: #0000BB;">2</span>   0.3219253  -0.7838389   1.5757275  <span style="color: #555555;">…</span> -1.45921400  0.07998255  0.65320434</span></span>
+<span><span class="co">## <span style="color: #0000BB;">3</span>   1.2009654   1.0447511  -1.0032086  <span style="color: #555555;">…</span> -0.43316903  0.69686258 -1.05636841</span></span>
+<span><span class="co">## <span style="color: #0000BB;">⋮</span>  <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">.</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span> <span style="color: #555555;">⋮</span></span></span>
+<span><span class="co">## <span style="color: #0000BB;">48</span>  0.21652165 -0.11474984  0.02033812 <span style="color: #555555;">…</span> -0.07366122 -0.77443033  0.59381614</span></span>
+<span><span class="co">## <span style="color: #0000BB;">49</span>  1.32750456 -0.60083583  0.05650686 <span style="color: #555555;">…</span> -0.03470590 -0.92074382  1.14805515</span></span>
+<span><span class="co">## <span style="color: #0000BB;">50</span> -0.38988011 -0.09926326 -0.02796606 <span style="color: #555555;">…</span>  0.69766736 -0.14444880  0.49854340</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="colmeans-1">colMeans<a class="anchor" aria-label="anchor" href="#colmeans-1"></a>
@@ -426,9 +434,9 @@ Click to expand
 </h2>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.3.2 (2023-10-31)</span></span>
+<pre><code><span><span class="co">## R version 4.3.3 (2024-02-29)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">## Running under: Ubuntu 22.04.3 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 22.04.4 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -448,14 +456,14 @@ Click to expand
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] Matrix_1.6-1.1        dbMatrix_0.0.0.9018   MatrixGenerics_1.14.0</span></span>
+<span><span class="co">## [1] Matrix_1.6-5          dbMatrix_0.0.0.9018   MatrixGenerics_1.14.0</span></span>
 <span><span class="co">## [4] matrixStats_1.2.0    </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] jsonlite_1.8.8    dplyr_1.1.4       compiler_4.3.2    tidyselect_1.2.0 </span></span>
-<span><span class="co">##  [5] blob_1.2.4        stringr_1.5.1     jquerylib_0.1.4   systemfonts_1.0.5</span></span>
+<span><span class="co">##  [1] jsonlite_1.8.8    crayon_1.5.2      dplyr_1.1.4       compiler_4.3.3   </span></span>
+<span><span class="co">##  [5] tidyselect_1.2.1  blob_1.2.4        jquerylib_0.1.4   systemfonts_1.0.6</span></span>
 <span><span class="co">##  [9] textshaping_0.3.7 yaml_2.3.8       </span></span>
-<span><span class="co">##  [ reached getOption("max.print") -- omitted 38 entries ]</span></span></code></pre>
+<span><span class="co">##  [ reached getOption("max.print") -- omitted 37 entries ]</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
