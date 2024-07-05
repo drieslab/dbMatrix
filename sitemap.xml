@@ -67,6 +67,12 @@
     <loc>https://drieslab.github.io/dbMatrix/reference/flex_window_order.html</loc>
   </url>
   <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/get_MM_dim.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/get_MM_dimnames.html</loc>
+  </url>
+  <url>
     <loc>https://drieslab.github.io/dbMatrix/reference/get_con.html</loc>
   </url>
   <url>
@@ -95,6 +101,12 @@
   </url>
   <url>
     <loc>https://drieslab.github.io/dbMatrix/reference/print_array.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/readMM.html</loc>
+  </url>
+  <url>
+    <loc>https://drieslab.github.io/dbMatrix/reference/read_matrix.html</loc>
   </url>
   <url>
     <loc>https://drieslab.github.io/dbMatrix/reference/save.html</loc>
