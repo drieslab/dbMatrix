@@ -77,6 +77,16 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://drieslab.github.io/dbMatrix/">dbMatrix</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="dbmatrix-arithmetic">dbMatrix arithmetic<a class="anchor" aria-label="anchor" href="#dbmatrix-arithmetic"></a>
+</h2>
+<p><code>dbMatrix</code> objects support <code>Arith</code> and
+<code>Ops</code> operations. We will demonstrate how to perform
+arithmetic operations on <code>dbSparseMatrix</code> objects.</p>
+<p><strong>Note:</strong> Some operations with zero values are not yet
+supported with dbMatrix objects. In addition, certain arithmetic
+operations between <code>dbMatrix</code> objects are also not yet
+supported. We welcome user feedback and reporting issues on the <a href="https://github.com/drieslab/dbMatrix/" class="external-link">Github page</a>.</p>
 <div class="section level3">
 <h3 id="get-test-data">Get test data<a class="anchor" aria-label="anchor" href="#get-test-data"></a>
 </h3>
@@ -263,6 +273,7 @@ single-cell RNA-seq data, the matrix is sparse.</p>
 <span><span class="co">#&gt; [43] ragg_1.3.2            fansi_1.0.6           purrr_1.0.2          </span></span>
 <span><span class="co">#&gt; [46] rmarkdown_2.27        matrixStats_1.3.0     tools_4.4.1          </span></span>
 <span><span class="co">#&gt; [49] pkgconfig_2.0.3       htmltools_0.5.8.1</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
